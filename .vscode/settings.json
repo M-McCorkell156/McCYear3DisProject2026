@@ -56,7 +56,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Year3DisProject.sln",
+    "dotnet.defaultSolution": "McCYear3DisProject2026.sln",
     "cSpell.words": [
         "Behaviour",
         "Lerp",
