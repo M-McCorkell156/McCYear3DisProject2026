@@ -173,7 +173,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213598}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -3295,6 +3295,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290706662}
   m_CullTransparentMesh: 1
+--- !u!1 &314920119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314920120}
+  - component: {fileID: 314920121}
+  m_Layer: 0
+  m_Name: SearchGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &314920120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314920119}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.1805468, y: -2.9949489, z: -1.6640258}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 952219247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &314920121
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314920119}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4bdc5203696fb6240b00c79e2a2c93cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &344962620
 GameObject:
   m_ObjectHideFlags: 0
@@ -3796,6 +3850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce158ccec4973bc43b336cc05d4c7302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animitor: {fileID: 314920121}
   gameStateManager: {fileID: 375892804}
   searchProgressBar: {fileID: 629353913}
 --- !u!1 &474343197
@@ -11615,6 +11670,7 @@ Transform:
   m_Children:
   - {fileID: 1481287185}
   - {fileID: 2038407904}
+  - {fileID: 314920120}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &977134490
@@ -13084,7 +13140,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207143681}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1207143685
 Camera:
   m_ObjectHideFlags: 0
@@ -15914,6 +15970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce158ccec4973bc43b336cc05d4c7302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animitor: {fileID: 314920121}
   gameStateManager: {fileID: 1152940807}
   searchProgressBar: {fileID: 1749766023}
 --- !u!1 &1922839167
@@ -18694,6 +18751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2038407904}
   - component: {fileID: 2038407905}
+  - component: {fileID: 2038407906}
   m_Layer: 0
   m_Name: PowerGame
   m_TagString: Untagged
@@ -18728,10 +18786,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291ba70f9146b8e40abf1a92b2c9c1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animitor: {fileID: 2038407906}
   gameStateManagers:
   - {fileID: 1152940807}
   - {fileID: 375892804}
   gridManager: {fileID: 997777503}
+--- !u!95 &2038407906
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038407903}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2cac5c87b8e40f1438ac165c905f1540, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2042632821
 GameObject:
   m_ObjectHideFlags: 0

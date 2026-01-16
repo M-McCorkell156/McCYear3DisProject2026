@@ -27,3 +27,29 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0049b46cd7452f9489be281d8db8a71c, type: 3}
     - {fileID: 8300000, guid: 463d825e49e5ad4468176821cd8ffc12, type: 3}
     - {fileID: 8300000, guid: b7dfa6ec2832c8b4ab7636adc466efbd, type: 3}
+  - name: FlipSwitch
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: f8aae8f459d490842a0ffbb3c0a2f467, type: 3}
+  - name: Searching
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 1869dab8d81e53340961f06ecdcbea3e, type: 3}
+    - {fileID: 8300000, guid: ee0c853f29e06894cbe26bcd9c24b327, type: 3}
+    - {fileID: 8300000, guid: 36cb0bfcb518884439aa10b524e6262b, type: 3}
+  - name: MiniGameSucess
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 0f565134ba5941641ba9cc0296c3387f, type: 3}
+    - {fileID: 8300000, guid: 74ecab261b5f23c45a1a3675eca97f35, type: 3}
+    - {fileID: 8300000, guid: fa6dad518022e2f40abd0d4826e76756, type: 3}
+  - name: MiniGameFail
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: a1b8c8304b5adbf45af80281a77c700a, type: 3}
+    - {fileID: 8300000, guid: 3d6250fb0b4ae3d4f831b1e731591d1c, type: 3}
+    - {fileID: 8300000, guid: f4e9a605e3921ac469f4c53f8fa3736e, type: 3}
