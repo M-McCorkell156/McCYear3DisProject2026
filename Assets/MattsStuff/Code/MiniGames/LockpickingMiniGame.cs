@@ -90,6 +90,7 @@ public class LockpickingMiniGame : MonoBehaviour
             }
 
             centreOfPick.transform.rotation = Quaternion.Euler(centreOfPick.transform.rotation.eulerAngles.x, centreOfPick.transform.rotation.eulerAngles.y, currentAngle);
+
             //Debug.Log(currentAngle);
             #endregion
         }
@@ -100,6 +101,7 @@ public class LockpickingMiniGame : MonoBehaviour
 
         if (breakingProgress >= breakThreshold)
         {
+            animitor.SetBool("isFail", true);
             gameOver = true;
             //Debug.Log("Broke");
             LostText.SetActive(true);
@@ -161,6 +163,7 @@ public class LockpickingMiniGame : MonoBehaviour
 
             if (unlockProgress >= unlockThreshold)
             {
+                animitor.SetBool("isSucess", true);
                 gameOver = true;
                 WinText.SetActive(true);
 

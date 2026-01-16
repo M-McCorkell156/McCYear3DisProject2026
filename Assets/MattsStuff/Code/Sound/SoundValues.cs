@@ -5,5 +5,9 @@ namespace MattsSound.SoundManager
     {
         Unlocking,
         Breaking,
+        FlipSwitch,
+        Searching,
+        MiniGameSucess,
+        MiniGameFail,   
     }
 }

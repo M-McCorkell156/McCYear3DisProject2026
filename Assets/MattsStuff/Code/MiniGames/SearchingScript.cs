@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class SearchingScript : MonoBehaviour
 {
+    [SerializeField] private Animator animitor;
+
     private bool isSearching;
     private bool isCancled;
     [SerializeField] private GameStateManager gameStateManager;
@@ -23,12 +25,14 @@ public class SearchingScript : MonoBehaviour
     private void StartSearchCountdown()
     {
         StartCoroutine(SearchProgress());
+        animitor.SetBool("isSearching", true);
     }
 
     private IEnumerator SearchProgress()
     {
         isSearching = true;
         searchProgressBar.fillAmount = 0f;
+        
         //Debug.Log("Searching...");
         yield return new WaitForSeconds(2f);
 
@@ -41,6 +45,7 @@ public class SearchingScript : MonoBehaviour
         {
             if (SearchFinished != null)
             {
+                animitor.SetBool("isSucess", true);
                 SearchFinished();
             }
             gameStateManager.CompleteSearchMiniGame();
@@ -60,5 +65,7 @@ public class SearchingScript : MonoBehaviour
     {
         isCancled = true;
         isSearching = false;
+        searchProgressBar.fillAmount = 0f;
+        animitor.SetBool("isFail", true);
     }
 }

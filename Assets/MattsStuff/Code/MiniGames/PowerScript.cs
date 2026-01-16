@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public delegate void FreezeTileMove();
 public class PowerScript : MonoBehaviour
 {
+    [SerializeField] private Animator animitor;
+
     private bool switch1Active;
     private GameObject switch1;
 
@@ -55,6 +57,7 @@ public class PowerScript : MonoBehaviour
         if (!switch1Active)
         {
             //Debug.Log("1 on");
+            animitor.SetBool("FlipSwitch", true);
             gridManager.FreezeCurrentGridMover();
             gridManager.SetPoweredCharacter();
             switch1Active = true;
@@ -66,6 +69,7 @@ public class PowerScript : MonoBehaviour
             foreach (GameStateManager gameManager in gameStateManagers)
             {
                 gridManager.UnfreezeCurrentGridMover();
+                animitor.SetBool("isSucess", true);
                 //Debug.Log("unfreeze");
             }
         }
@@ -78,7 +82,9 @@ public class PowerScript : MonoBehaviour
     public void CanclePower()
     {
         ResetSwitches();
-        if(switch1Active)
+        animitor.SetBool("isFail",true);
+
+        if (switch1Active)
         {
             foreach (GameStateManager gameManager in gameStateManagers)
             {
