@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour
 {
+
+    [SerializeField] private Animator animitor; 
     public static TurnManager Instance;
     [SerializeField] private LockpickingMiniGame lockpickingMiniGame;
     [SerializeField] private List<SearchingScript> searchingScripts;
@@ -30,6 +32,7 @@ public class TurnManager : MonoBehaviour
     {
 
         //Debug.Log("Force ending turn.");
+        handToTurn.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0);
         IsPlayerTurn = false;
         lockpickingMiniGame.FinishGame();
         foreach (SearchingScript searchingScript in searchingScripts)
@@ -45,10 +48,12 @@ public class TurnManager : MonoBehaviour
 
     private void EnemyPhase()
     {
+        animitor.SetTrigger("Chime");
         //Debug.Log("Enemy turn started!");
         // When enemies finish:
         //Debug.Log("Enemy turn ended!");
-        enemyMover.TakeTurn();
+        //enemyMover.TakeTurn();
+        Invoke("StartPlayerTurn", 10.0f); // Simulate enemy turn delay
     }
 
     public void StartPlayerTurn()
@@ -68,6 +73,7 @@ public class TurnManager : MonoBehaviour
             //Debug.Log("Countdown: " + timeCountdown);         
             newAngle = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, (timeCountdown / turnTimeLimit) * -360f);
             handToTurn.transform.localRotation = Quaternion.Lerp(Quaternion.identity, newAngle, 1f);
+            animitor.SetTrigger("Tick");
             yield return new WaitForSeconds(1.0f);
             timeCountdown--;
         }

@@ -17,7 +17,7 @@ public class SearchingScript : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("awake");
+        //Debug.Log("awake");
         isCancled = false;
         StartSearchCountdown();
         searchProgressBar.fillAmount = 0f;
@@ -32,7 +32,7 @@ public class SearchingScript : MonoBehaviour
     {
         isSearching = true;
         searchProgressBar.fillAmount = 0f;
-        
+
         //Debug.Log("Searching...");
         yield return new WaitForSeconds(2f);
 
@@ -63,9 +63,16 @@ public class SearchingScript : MonoBehaviour
 
     public void CancleSearch()
     {
-        isCancled = true;
-        isSearching = false;
-        searchProgressBar.fillAmount = 0f;
-        animitor.SetBool("isFail", true);
+        if (isSearching)
+        {
+            animitor.SetBool("isFail", true);
+            isCancled = true;
+            isSearching = false;
+            searchProgressBar.fillAmount = 0f;
+            animitor.SetBool("isFail", false);
+            animitor.SetBool("isSucess", false);
+            animitor.SetBool("isSearching", false);
+
+        }
     }
 }

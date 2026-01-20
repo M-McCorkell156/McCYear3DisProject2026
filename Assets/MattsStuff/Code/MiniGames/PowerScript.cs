@@ -27,7 +27,9 @@ public class PowerScript : MonoBehaviour
         //Debug.Log("Reset");
         switch1Active = false;
         switch2Active = false;
-
+        animitor.SetBool("isSucess", false);
+        animitor.SetBool("isSwitch", false);
+        animitor.SetBool("isFail", false);
         foreach (GameStateManager gameManager in gameStateManagers)
         {
             gridManager.UnfreezeCurrentGridMover();
@@ -57,7 +59,7 @@ public class PowerScript : MonoBehaviour
         if (!switch1Active)
         {
             //Debug.Log("1 on");
-            animitor.SetBool("FlipSwitch", true);
+            animitor.SetTrigger("Switch");
             gridManager.FreezeCurrentGridMover();
             gridManager.SetPoweredCharacter();
             switch1Active = true;
@@ -69,7 +71,7 @@ public class PowerScript : MonoBehaviour
             foreach (GameStateManager gameManager in gameStateManagers)
             {
                 gridManager.UnfreezeCurrentGridMover();
-                animitor.SetBool("isSucess", true);
+                animitor.SetTrigger("Sucess");
                 //Debug.Log("unfreeze");
             }
         }
@@ -81,11 +83,10 @@ public class PowerScript : MonoBehaviour
 
     public void CanclePower()
     {
-        ResetSwitches();
-        animitor.SetBool("isFail",true);
-
         if (switch1Active)
         {
+            animitor.SetTrigger("Fail");
+
             foreach (GameStateManager gameManager in gameStateManagers)
             {
                 if (gridManager.GetPoweredGameStateManager() == null)
@@ -99,5 +100,7 @@ public class PowerScript : MonoBehaviour
             }
         }
 
+        ResetSwitches();
     }
+
 }

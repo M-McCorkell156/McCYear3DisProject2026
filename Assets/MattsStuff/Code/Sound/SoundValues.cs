@@ -9,5 +9,10 @@ namespace MattsSound.SoundManager
         Searching,
         MiniGameSucess,
         MiniGameFail,   
+        TickingClock,
+        ChimingClock,
+        BGMLow,
+        BGMMid,
+        BGMHigh,
     }
 }

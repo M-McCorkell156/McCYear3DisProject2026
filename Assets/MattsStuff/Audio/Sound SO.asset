@@ -53,3 +53,32 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a1b8c8304b5adbf45af80281a77c700a, type: 3}
     - {fileID: 8300000, guid: 3d6250fb0b4ae3d4f831b1e731591d1c, type: 3}
     - {fileID: 8300000, guid: f4e9a605e3921ac469f4c53f8fa3736e, type: 3}
+  - name: TickingClock
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 5454258f38ec10f409812a6fd71e0173, type: 3}
+    - {fileID: 8300000, guid: 11aa7505fa9521444b0673b9c3d48f94, type: 3}
+    - {fileID: 8300000, guid: 1c3ff0c4c4bd39349a04bbcfdb2d4ec7, type: 3}
+    - {fileID: 8300000, guid: 8fa14f57fbc37e6419dd34144cab5d0e, type: 3}
+    - {fileID: 8300000, guid: 900ebd33b4c57114c9c54f76609c50e5, type: 3}
+  - name: ChimingClock
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 89675469a57338848993741cc1e81e3c, type: 3}
+  - name: BGMLow
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 30a1a4999ac6b2a438acc9f84ec245dd, type: 3}
+  - name: BGMMid
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: eaccfb18be637d146845804d6720b57e, type: 3}
+  - name: BGMHigh
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: bf3824266e0c26346bc924ed828e3e58, type: 3}

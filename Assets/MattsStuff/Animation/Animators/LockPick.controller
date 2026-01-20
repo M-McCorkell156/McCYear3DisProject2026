@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47d7904d50890447a4eceae6d687997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: 2
+  sound: 4
   volume: 1
 --- !u!114 &-2012169205135720420
 MonoBehaviour:
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47d7904d50890447a4eceae6d687997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: 3
+  sound: 5
   volume: 1
 --- !u!1102 &-1478906556543777086
 AnimatorState:
@@ -189,6 +189,28 @@ AnimatorTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 1
+--- !u!1101 &-640950612636969266
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -4259623033892379509}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1107 &-590901534497686093
 AnimatorStateMachine:
   serializedVersion: 6
@@ -217,6 +239,7 @@ AnimatorStateMachine:
   m_AnyStateTransitions:
   - {fileID: -5527819282771079296}
   - {fileID: -6338017666452004330}
+  - {fileID: -640950612636969266}
   m_EntryTransitions:
   - {fileID: -778631132022526745}
   m_StateMachineTransitions: {}
