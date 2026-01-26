@@ -78,14 +78,15 @@ public class GridMover : MonoBehaviour
             if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                MeshObj.transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.deltaTime);
+                //Debug.Log("target dir is "+ targetRotation);
+                MeshObj.transform.rotation = Quaternion.RotateTowards(MeshObj.transform.rotation, targetRotation, 360 * Time.deltaTime);
             }
 
             if (Vector3.Distance(transform.position, targetWorldPos) < 0.01f)
             {
                 transform.position = targetWorldPos;
                 isMoving = false;
-                //animator.SetBool("isWalk",false);
+                animator.SetBool("isWalk",false);
                 gridManager.OnPlayerArrivedAtTile(currentGridPos);
             }
         }
@@ -99,7 +100,7 @@ public class GridMover : MonoBehaviour
         targetWorldPos = gridManager.GetWorldPosition(x, y);
         currentGridPos = new Vector2Int(x, y);
         isMoving = true;
-        //animator.SetBool("isWalk",true);
+        animator.SetBool("isWalk",true);
         gridManager.SetPlayerPosition(currentGridPos);
         CheckForInteractive(currentGridPos);
     }

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/CC'sStuff/Scenes/Main Menu.unity
     guid: fa0e2d314dd4f084b90f1af3317875ef
   - enabled: 1
-    path: Assets/MattsStuff/Scenes/Level_1_TheMilkman.unity
+    path: Assets/MattsStuff/Scenes/Level_1_TheMilkman/Level_1_TheMilkman.unity
     guid: ca1d641d96fc076499dd4e12f9a34c3c
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
