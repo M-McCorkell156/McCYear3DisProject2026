@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
 
     public bool IsPlayerTurn = true;
 
-    [SerializeField][Range(10, 60)] private float turnTimeLimit;
+    [Range(10, 60)] public float turnTimeLimit;
 
     [SerializeField] private GameObject handToTurn;
 
