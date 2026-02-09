@@ -11,6 +11,7 @@ public class SearchingScript : MonoBehaviour
     private bool isSearching;
     private bool isCancled;
     [SerializeField] private GameStateManager gameStateManager;
+    [SerializeField] private TimeManager timeManager;
 
     [SerializeField] private Image searchProgressBar;
     public static event WinHandler SearchFinished;
@@ -25,6 +26,7 @@ public class SearchingScript : MonoBehaviour
     private void StartSearchCountdown()
     {
         StartCoroutine(SearchProgress());
+        timeManager.RecordTime (TimeEventType.MiniGameStart);
         animitor.SetBool("isSearching", true);
     }
 
@@ -45,9 +47,10 @@ public class SearchingScript : MonoBehaviour
         {
             if (SearchFinished != null)
             {
-                animitor.SetBool("isSucess", true);
                 SearchFinished();
             }
+            animitor.SetBool("isSucess", true);
+            timeManager.RecordTime(TimeEventType.MiniGameEnd);
             gameStateManager.CompleteSearchMiniGame();
         }
 
@@ -65,6 +68,8 @@ public class SearchingScript : MonoBehaviour
     {
         if (isSearching)
         {
+            timeManager.RecordTime(TimeEventType.MiniGameCancel);
+
             animitor.SetBool("isFail", true);
             isCancled = true;
             isSearching = false;

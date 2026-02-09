@@ -23,6 +23,8 @@ public class TileSelector : MonoBehaviour
         isFreeze = false;
         LockpickingMiniGame.freezeGridMove += FreezeSelection;
         LockpickingMiniGame.unfreezeGridMoves += UnfreezeSelection;
+        TurnManager.freezeMoves += FreezeSelection;
+        TurnManager.unfreezeMoves += UnfreezeSelection;
         GridManager.freeze += FreezeSelection;
         GridManager.unfreeze += UnfreezeSelection;
     }
@@ -60,7 +62,7 @@ public class TileSelector : MonoBehaviour
             //Debug.Log("Tile selection is frozen or GridManager is null.");
             return;
         }
-
+        
         //Debug.Log($"Tile at ({x}, {y}) clicked.");
         gridManager.OnTileClicked(x, y);
     }

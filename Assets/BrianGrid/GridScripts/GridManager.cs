@@ -25,6 +25,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
 
     [Header("Matts Amazing Tile Stuff")]
+    [Range(2, 6)]
+    [SerializeField] private int PlayerTileRange;
+    [Range(1, 3)]
+    [SerializeField] private int playerTurnLimit;
+    [SerializeField] private int thisPlayerTurnCount;
+    [SerializeField] private int storedPlayer1TurnCount;
+    [SerializeField] private int storedPlayer2TurnCount;
     [SerializeField] public List<Vector2> SearchableTilesList = new List<Vector2>();
     [SerializeField] public List<Vector2> WeaponTile = new List<Vector2>();
     [SerializeField] public List<Vector2> Puzzletiles = new List<Vector2>();
@@ -38,6 +45,14 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         GenerateGrid();
+        storedPlayer1TurnCount = 0;
+        storedPlayer2TurnCount = 0;
+        LockpickingMiniGame.freezeGridMove += ClearHighlights;
+        LockpickingMiniGame.unfreezeGridMoves += ClearHighlights;
+        TurnManager.freezeMoves += ClearHighlights;
+        TurnManager.unfreezeMoves += ClearHighlights;
+        GridManager.freeze += ClearHighlights;
+        GridManager.unfreeze += ClearHighlights;
         currentFrozenCharacter = Characters.None;
     }
 
@@ -157,6 +172,13 @@ public class GridManager : MonoBehaviour
         return x >= 0 && y >= 0 && x < width && y < height && tiles[x, y] != null && tiles[x, y].isWalkable;
     }
 
+    public void ResetTurnCount()
+    {
+       storedPlayer1TurnCount = 0;
+       storedPlayer2TurnCount = 0;
+       thisPlayerTurnCount = 0;
+    }
+
     public void OnTileClicked(int x, int y)
     {
         //Debug.Log($"Tile clicked at ({x}, {y})");
@@ -173,8 +195,10 @@ public class GridManager : MonoBehaviour
             for (int w = 0; w < height; w++)
             {
                 int distance = Mathf.Abs(v - center.x) + Mathf.Abs(y - center.y);
-                if (distance + tiles[v, w].moveCost <= 3 && v == x && y ==w)
+
+                if (distance + tiles[v, w].moveCost <= PlayerTileRange && v == x && y == w && thisPlayerTurnCount < playerTurnLimit)
                 {
+                    thisPlayerTurnCount++;
                     currentGridMover.MoveToTile(x, y);
                     return;
                 }
@@ -194,16 +218,18 @@ public class GridManager : MonoBehaviour
             {
                 int distance = Mathf.Abs(x - center.x) + Mathf.Abs(y - center.y);
                 //Debug.Log("Distance: " + distance  + " Center: " + center + " Tile: (" + x + "," + y + ")");
-                if (distance + tiles[x, y].moveCost <= range)
+                if (distance + tiles[x, y].moveCost <= range && thisPlayerTurnCount < playerTurnLimit)
                 {
                     if (tiles[x, y] != null)
                     {
                         if (tiles[x, y].isWalkable && tiles[x, y].GetComponent<InteractiveTile>() == null)
-
+                        {
                             tiles[x, y].Highlight(Color.cyan);
-
+                        }
                         else if (tiles[x, y].GetComponent<InteractiveTile>() != null)
+                        {
                             tiles[x, y].Highlight(Color.magenta);
+                        }
                         else
                             tiles[x, y].Highlight(Color.red);
                     }
@@ -228,24 +254,36 @@ public class GridManager : MonoBehaviour
 
     public void OnPlayerArrivedAtTile(Vector2Int pos)
     {
-        HighlightRange(pos, 3); // Example: highlight around player
+        HighlightRange(pos, PlayerTileRange); // Example: highlight around player
     }
 
     public void SetPlayerPosition(Vector2Int pos)
     {
-        HighlightRange(pos, 3);
+        HighlightRange(pos, PlayerTileRange);
     }
 
     public void ResetHighlights()
     {
         ClearHighlights();
-        HighlightRange(currentGridMover.GetCurrentGridPos(), 3);
+        HighlightRange(currentGridMover.GetCurrentGridPos(), PlayerTileRange);
     }
 
     public void SetCurrentCharacter()
     {
         currentCharacterObject = changeSelectedCharacter.GetCurrentCharacterObject();
         currentGridMover = currentCharacterObject.GetComponent<GridMover>();
+
+        switch(changeSelectedCharacter.GetCharacter())
+        {
+            case Characters.Ashley:
+                storedPlayer2TurnCount = thisPlayerTurnCount;
+                thisPlayerTurnCount = 0 + storedPlayer1TurnCount;
+                break;
+            case Characters.Joe:
+                storedPlayer1TurnCount = thisPlayerTurnCount;
+                thisPlayerTurnCount = 0 + storedPlayer2TurnCount;
+                break;
+        }
 
         if (changeSelectedCharacter.GetCharacter() == currentFrozenCharacter)
         {
@@ -312,22 +350,22 @@ public class GridManager : MonoBehaviour
                 if (currentGridMover)
                     currentGridMover.UnfreezeGridMoves();
 
-                unfreeze();
+                if (unfreeze != null) unfreeze();
                 changeSelectedCharacter.SelectJoe();
                 SetCurrentCharacter();
                 currentGridMover.UnfreezeGridMoves();
-                unfreeze();
+                if (unfreeze != null) unfreeze();
                 changeSelectedCharacter.SelectAshley();
                 SetCurrentCharacter();
                 break;
             case Characters.Joe:
                 if (currentGridMover)
                     currentGridMover.UnfreezeGridMoves();
-                unfreeze();
+                if (unfreeze != null) unfreeze();
                 changeSelectedCharacter.SelectAshley();
                 SetCurrentCharacter();
                 currentGridMover.UnfreezeGridMoves();
-                unfreeze();
+                if (unfreeze != null) unfreeze();
                 changeSelectedCharacter.SelectJoe();
                 SetCurrentCharacter();
                 break;

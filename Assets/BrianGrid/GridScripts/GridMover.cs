@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class GridMover : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
+    public float moveSpeed;
 
     [Header("Grid Reference")]
     public GridManager gridManager;
@@ -56,7 +56,9 @@ public class GridMover : MonoBehaviour
         gridManager.SetPlayerPosition(currentGridPos);
         
         LockpickingMiniGame.freezeGridMove += FreezeGridMoves;
-        LockpickingMiniGame.unfreezeGridMoves += UnfreezeGridMoves;  
+        LockpickingMiniGame.unfreezeGridMoves += UnfreezeGridMoves;
+        TurnManager.freezeMoves += FreezeGridMoves;
+        TurnManager.unfreezeMoves += UnfreezeGridMoves;
         GridManager.freeze += FreezeGridMoves;
         GridManager.unfreeze += UnfreezeGridMoves;
         WinConditionUI.CanLeave += SetEscape;

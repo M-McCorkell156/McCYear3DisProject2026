@@ -15,7 +15,7 @@ public class ChangeSelectedCharacter : MonoBehaviour
     private GridMover gridMover;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private GameObject[] playableCharacters;
-    private Characters character;
+    public Characters character;
 
     private void Start()
     {

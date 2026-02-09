@@ -13,37 +13,58 @@ public class TimeManager : MonoBehaviour
 {
     private int gameCount;
 
-    private List<float> miniGameStart;
-    private List<float> miniGameEnd;
+    [SerializeField] private List<float> miniGameStart;
+    [SerializeField] private List<float> miniGameEnd;
+
+
 
     public void RecordTime(TimeEventType currentEvent)
     {
         switch (currentEvent)
         {
             case TimeEventType.MiniGameStart:
+
                 miniGameStart.Add(Time.deltaTime);
                 break;
+
             case TimeEventType.MiniGameEnd:
+
                 miniGameEnd.Add(Time.deltaTime);
                 gameCount++;
                 break;
+
             case TimeEventType.MiniGameCancel:
-                if(miniGameStart.Count > 0)
+                Debug.Log("cancle game : " + gameCount);
+                if (miniGameStart.Count > 0)
                 {
-                    miniGameStart.RemoveAt(gameCount - 1);
+                    miniGameStart.RemoveAt(gameCount);
                 }
                 gameCount++;
                 break;
+
         }
     }
 
     public float CalculateTurnScore()
     {
-        float turnScore; 
-        foreach(float startTime in miniGameStart)
+        float turnScore = 0;
+
+        for (int i = 0; i < miniGameStart.Count; i++)
         {
-            turnScore =+ startTime;
+            if (miniGameStart != null || miniGameEnd != null)
+            {
+                turnScore += miniGameEnd[i] - miniGameStart[i];
+            }
+            else
+            {
+                turnScore += 0;
+            }
+
         }
-        return turnScore = 0;    
+        miniGameStart.Clear();
+        miniGameEnd.Clear();
+
+        return turnScore += gameCount / 10;
+
     }
 }

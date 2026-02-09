@@ -4276,6 +4276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animitor: {fileID: 314920121}
   gameStateManager: {fileID: 375892804}
+  timeManager: {fileID: 627067254}
   searchProgressBar: {fileID: 629353913}
 --- !u!1 &474343197
 GameObject:
@@ -10446,6 +10447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 627067251}
   - component: {fileID: 627067252}
+  - component: {fileID: 627067254}
   - component: {fileID: 627067253}
   m_Layer: 0
   m_Name: TurnManager
@@ -10488,9 +10490,11 @@ MonoBehaviour:
   - {fileID: 469862307}
   powerScript: {fileID: 2038407905}
   enemyMover: {fileID: 4386295082995755676}
+  timeManager: {fileID: 627067254}
   IsPlayerTurn: 1
   turnTimeLimit: 10
   handToTurn: {fileID: 6595808124849398355}
+  gridManager: {fileID: 997777503}
 --- !u!95 &627067253
 Animator:
   serializedVersion: 7
@@ -10513,6 +10517,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &627067254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627067249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1d87c124462364b90346e18615ac12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniGameStart: []
+  miniGameEnd: []
 --- !u!1 &629353909
 GameObject:
   m_ObjectHideFlags: 0
@@ -12542,6 +12560,8 @@ MonoBehaviour:
   currentGridMover: {fileID: 0}
   currentCharacterObject: {fileID: 0}
   changeSelectedCharacter: {fileID: 2051918048}
+  PlayerTileRange: 3
+  playerTurnLimit: 0
   SearchableTilesList:
   - {x: 20, y: 7}
   WeaponTile:
@@ -16787,6 +16807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animitor: {fileID: 314920121}
   gameStateManager: {fileID: 1152940807}
+  timeManager: {fileID: 627067254}
   searchProgressBar: {fileID: 1749766023}
 --- !u!1 &1922839167
 GameObject:

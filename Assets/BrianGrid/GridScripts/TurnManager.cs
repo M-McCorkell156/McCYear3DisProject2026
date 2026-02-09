@@ -7,12 +7,13 @@ using System.Collections.Generic;
 public class TurnManager : MonoBehaviour
 {
 
-    [SerializeField] private Animator animitor; 
+    [SerializeField] private Animator animitor;
     public static TurnManager Instance;
     [SerializeField] private LockpickingMiniGame lockpickingMiniGame;
     [SerializeField] private List<SearchingScript> searchingScripts;
     [SerializeField] private PowerScript powerScript;
     [SerializeField] private EnemyMover enemyMover;
+    [SerializeField] private TimeManager timeManager;
 
     public bool IsPlayerTurn = true;
 
@@ -21,6 +22,12 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject handToTurn;
 
     private float timeCountdown;
+
+    public static event FreezeTileMove freezeMoves;
+
+    public static event FreezeTileMove unfreezeMoves;
+
+    [SerializeField] private GridManager gridManager;
 
     private void Awake()
     {
@@ -37,10 +44,11 @@ public class TurnManager : MonoBehaviour
         lockpickingMiniGame.FinishGame();
         foreach (SearchingScript searchingScript in searchingScripts)
         {
-          searchingScript.CancleSearch(); 
+            searchingScript.CancleSearch();
         }
 
         powerScript.CanclePower();
+        gridManager.ResetTurnCount();
 
         // Call enemy actions here
         EnemyPhase();
@@ -49,16 +57,28 @@ public class TurnManager : MonoBehaviour
     private void EnemyPhase()
     {
         animitor.SetTrigger("Chime");
+
+        if (freezeMoves != null)
+        {
+            freezeMoves();
+        }
+
+        //Debug.Log(timeManager.CalculateTurnScore());
         //Debug.Log("Enemy turn started!");
         // When enemies finish:
         //Debug.Log("Enemy turn ended!");
         //enemyMover.TakeTurn();
-        Invoke("StartPlayerTurn", 10.0f); // Simulate enemy turn delay
+        Invoke("StartPlayerTurn", 5.0f); // Simulate enemy turn delay
     }
 
     public void StartPlayerTurn()
     {
         //Debug.Log("Player turn started!");
+        if (unfreezeMoves != null)
+        {
+            unfreezeMoves();
+        }
+
         timeCountdown = turnTimeLimit;
         handToTurn.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0);
         StartCoroutine(StartCountdown());
