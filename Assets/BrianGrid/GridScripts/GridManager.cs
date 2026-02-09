@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 
 public class GridManager : MonoBehaviour
@@ -32,6 +33,10 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int thisPlayerTurnCount;
     [SerializeField] private int storedPlayer1TurnCount;
     [SerializeField] private int storedPlayer2TurnCount;
+
+    [SerializeField] private TextMeshProUGUI plyAshTurnCount;
+    [SerializeField] private TextMeshProUGUI plyJoeTurnCount;
+
     [SerializeField] public List<Vector2> SearchableTilesList = new List<Vector2>();
     [SerializeField] public List<Vector2> WeaponTile = new List<Vector2>();
     [SerializeField] public List<Vector2> Puzzletiles = new List<Vector2>();
@@ -47,6 +52,7 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
         storedPlayer1TurnCount = 0;
         storedPlayer2TurnCount = 0;
+        UpdateUI();
         LockpickingMiniGame.freezeGridMove += ClearHighlights;
         LockpickingMiniGame.unfreezeGridMoves += ClearHighlights;
         TurnManager.freezeMoves += ClearHighlights;
@@ -174,9 +180,26 @@ public class GridManager : MonoBehaviour
 
     public void ResetTurnCount()
     {
-       storedPlayer1TurnCount = 0;
-       storedPlayer2TurnCount = 0;
-       thisPlayerTurnCount = 0;
+        storedPlayer1TurnCount = 0;
+        storedPlayer2TurnCount = 0;
+        thisPlayerTurnCount = 0;
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        switch (changeSelectedCharacter.GetCharacter())
+        {
+            case Characters.Ashley:
+                plyAshTurnCount.text = playerTurnLimit - thisPlayerTurnCount + "/" + playerTurnLimit;
+                plyJoeTurnCount.text = playerTurnLimit - storedPlayer2TurnCount + "/" + playerTurnLimit;
+                break;
+
+            case Characters.Joe:
+                plyAshTurnCount.text = playerTurnLimit - storedPlayer1TurnCount + "/" + playerTurnLimit;
+                plyJoeTurnCount.text = playerTurnLimit - thisPlayerTurnCount + "/" + playerTurnLimit;
+                break;
+        }
     }
 
     public void OnTileClicked(int x, int y)
@@ -199,6 +222,7 @@ public class GridManager : MonoBehaviour
                 if (distance + tiles[v, w].moveCost <= PlayerTileRange && v == x && y == w && thisPlayerTurnCount < playerTurnLimit)
                 {
                     thisPlayerTurnCount++;
+                    UpdateUI();
                     currentGridMover.MoveToTile(x, y);
                     return;
                 }
@@ -273,7 +297,7 @@ public class GridManager : MonoBehaviour
         currentCharacterObject = changeSelectedCharacter.GetCurrentCharacterObject();
         currentGridMover = currentCharacterObject.GetComponent<GridMover>();
 
-        switch(changeSelectedCharacter.GetCharacter())
+        switch (changeSelectedCharacter.GetCharacter())
         {
             case Characters.Ashley:
                 storedPlayer2TurnCount = thisPlayerTurnCount;
