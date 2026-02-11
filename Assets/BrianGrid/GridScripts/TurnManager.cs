@@ -49,7 +49,6 @@ public class TurnManager : MonoBehaviour
 
         powerScript.CanclePower();
         gridManager.ResetTurnCount();
-
         // Call enemy actions here
         EnemyPhase();
     }

@@ -10764,7 +10764,7 @@ MonoBehaviour:
   enemyMover: {fileID: 4386295082995755676}
   timeManager: {fileID: 627067254}
   IsPlayerTurn: 1
-  turnTimeLimit: 20
+  turnTimeLimit: 10
   handToTurn: {fileID: 6595808124849398355}
   gridManager: {fileID: 997777503}
 --- !u!95 &627067253
@@ -14802,6 +14802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centreOfPick: {fileID: 2143445644}
   anyGameStateManager: {fileID: 1152940807}
+  timeManager: {fileID: 627067254}
   progressBar: {fileID: 669693486}
   breakBar: {fileID: 496244221}
   WinText: {fileID: 290706662}

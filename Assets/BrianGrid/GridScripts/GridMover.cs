@@ -38,6 +38,7 @@ public class GridMover : MonoBehaviour
     public void UnfreezeGridMoves()
     {
         isFreeze = false;
+        gridManager.ResetHighlights();
         //Debug.Log("unfreeze");
     }
     private void Start()

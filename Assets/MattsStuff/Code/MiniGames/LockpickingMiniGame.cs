@@ -10,6 +10,8 @@ public class LockpickingMiniGame : MonoBehaviour
     [SerializeField] private GameObject centreOfPick;
     [Header("Game State Manager")]
     [SerializeField] private GameStateManager anyGameStateManager;
+    [Header("TimeManager")]
+    [SerializeField] private TimeManager timeManager;
     [Header("Canvas")]
     [SerializeField] private Image progressBar;
     [SerializeField] private Image breakBar;
@@ -52,6 +54,7 @@ public class LockpickingMiniGame : MonoBehaviour
     private void OnEnable()
     {
         GameSetUp();
+        timeManager.RecordTime(TimeEventType.MiniGameStart);
         freezeGridMove?.Invoke();
     }
     private void FixedUpdate()
@@ -103,6 +106,7 @@ public class LockpickingMiniGame : MonoBehaviour
         {
             animitor.SetBool("isFail", true);
             gameOver = true;
+            timeManager.RecordTime(TimeEventType.MiniGameEnd);
             //Debug.Log("Broke");
             LostText.SetActive(true);
             unfreezeGridMoves();
@@ -166,6 +170,7 @@ public class LockpickingMiniGame : MonoBehaviour
                 animitor.SetBool("isSucess", true);
                 gameOver = true;
                 WinText.SetActive(true);
+                timeManager.RecordTime(TimeEventType.MiniGameEnd);
 
                 anyGameStateManager.CompletePickMiniGame();
 
@@ -228,6 +233,7 @@ public class LockpickingMiniGame : MonoBehaviour
         if(unfreezeGridMoves != null)
         unfreezeGridMoves();
         
+        timeManager.RecordTime(TimeEventType.MiniGameCancel);
         this.gameObject.SetActive(false);
 
     }

@@ -12,11 +12,17 @@ public enum TimeEventType
 public class TimeManager : MonoBehaviour
 {
     private int gameCount;
+    private int gamesFinished;
+
+    private float turnTime;
 
     [SerializeField] private List<float> miniGameStart;
     [SerializeField] private List<float> miniGameEnd;
 
-
+    private void Update()
+    {
+        turnTime += Time.deltaTime;
+    }
 
     public void RecordTime(TimeEventType currentEvent)
     {
@@ -24,13 +30,14 @@ public class TimeManager : MonoBehaviour
         {
             case TimeEventType.MiniGameStart:
 
-                miniGameStart.Add(Time.deltaTime);
+                miniGameStart.Add(turnTime);
                 break;
 
             case TimeEventType.MiniGameEnd:
 
-                miniGameEnd.Add(Time.deltaTime);
+                miniGameEnd.Add(turnTime);
                 gameCount++;
+                gamesFinished++;
                 break;
 
             case TimeEventType.MiniGameCancel:
@@ -61,10 +68,13 @@ public class TimeManager : MonoBehaviour
             }
 
         }
+
         miniGameStart.Clear();
         miniGameEnd.Clear();
+        turnScore += gamesFinished;
+        gamesFinished = 0;
 
-        return turnScore += gameCount / 10;
+        return turnScore;
 
     }
 }

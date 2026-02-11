@@ -268,6 +268,8 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
+                if(tiles[x, y] == null)
+                    continue;
                 if (tiles[x, y] != null && tiles[x, y].GetComponent<InteractiveTile>() == null)
                     tiles[x, y].ResetColor();
 
@@ -394,6 +396,8 @@ public class GridManager : MonoBehaviour
                 SetCurrentCharacter();
                 break;
         }
+
+        ResetHighlights();
     }
 
     public void ReplaceInteractibleTile()
