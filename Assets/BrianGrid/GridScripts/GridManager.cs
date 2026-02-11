@@ -397,7 +397,6 @@ public class GridManager : MonoBehaviour
                 break;
         }
 
-        ResetHighlights();
     }
 
     public void ReplaceInteractibleTile()
