@@ -60,6 +60,7 @@ public class GridManager : MonoBehaviour
         GridManager.freeze += ClearHighlights;
         GridManager.unfreeze += ClearHighlights;
         currentFrozenCharacter = Characters.None;
+        SetCurrentCharacter();
     }
 
     public void AddWallTile(string tileName)

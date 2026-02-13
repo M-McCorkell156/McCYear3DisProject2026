@@ -233,7 +233,10 @@ public class LockpickingMiniGame : MonoBehaviour
         if(unfreezeGridMoves != null)
         unfreezeGridMoves();
         
-        timeManager.RecordTime(TimeEventType.MiniGameCancel);
+        if(!gameOver)
+        {
+           timeManager.RecordTime(TimeEventType.MiniGameCancel);
+        }
         this.gameObject.SetActive(false);
 
     }

@@ -41,7 +41,12 @@ public class TurnManager : MonoBehaviour
         //Debug.Log("Force ending turn.");
         handToTurn.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0);
         IsPlayerTurn = false;
-        lockpickingMiniGame.FinishGame();
+
+        if (lockpickingMiniGame.gameObject.activeSelf)
+        {
+            lockpickingMiniGame.FinishGame();
+        }
+
         foreach (SearchingScript searchingScript in searchingScripts)
         {
             searchingScript.CancleSearch();
