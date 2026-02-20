@@ -42,12 +42,12 @@ public class TimeManager : MonoBehaviour
 
             case TimeEventType.MiniGameCancel:
                 //Debug.Log("cancle game : " + gameCount);
-                if (miniGameStart.Count > 0) 
+                if (miniGameStart.Count > 0)
                 {
-                    Debug.Log("cancle game : " + gameCount);
+                    //Debug.Log("cancle game : " + gameCount);
                     miniGameStart.RemoveAt(gameCount);
+                    gameCount++;
                 }
-                gameCount++;
                 break;
 
         }

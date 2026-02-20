@@ -33,6 +33,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int thisPlayerTurnCount;
     [SerializeField] private int storedPlayer1TurnCount;
     [SerializeField] private int storedPlayer2TurnCount;
+    private int totalTurnCount;
 
     [SerializeField] private TextMeshProUGUI plyAshTurnCount;
     [SerializeField] private TextMeshProUGUI plyJoeTurnCount;
@@ -86,6 +87,22 @@ public class GridManager : MonoBehaviour
                 selector.moveCost = 5;
                 selector.isWalkable = false;
                 selector.Highlight(Color.red);
+            }
+        }
+    }
+
+    public void RefreshWallTiles()
+    {
+        foreach (Vector2 wallGridPos in Walltiles)
+        {
+            GameObject wallTileObj = tiles[(int)wallGridPos.x, (int)wallGridPos.y].gameObject;
+            TileSelector selector = wallTileObj.GetComponent<TileSelector>();
+            if (selector != null)
+            {
+                wallTileObj.AddComponent<WallColide>();
+                selector.ResetColor();
+                selector.moveCost = 5;
+                selector.isWalkable = true;
             }
         }
     }
@@ -408,7 +425,6 @@ public class GridManager : MonoBehaviour
         //Debug.Log("Destroying " + currentTileObj);
         Destroy(currentTileObj.GetComponent<InteractiveTile>());
         ResetHighlights();
-
     }
 
 

@@ -16,6 +16,7 @@ public class ChangeSelectedCharacter : MonoBehaviour
     [SerializeField] private GridManager gridManager;
     [SerializeField] private GameObject[] playableCharacters;
     public Characters character;
+    private bool canSwitch;
 
     private void Start()
     {
@@ -26,9 +27,16 @@ public class ChangeSelectedCharacter : MonoBehaviour
         gridManager.SetCurrentCharacter();
         gridMover.UnfreezeGridMoves();
     }
-
+    public void UnlockSwitching()
+    {
+        canSwitch = true;
+    }
     public void ChangeCharacter()
     {
+        //Debug.Log("Changing Character");
+        if (!canSwitch)
+            return;
+
         if (currentCharacter == playableCharacters[(int)character])
             return;
 

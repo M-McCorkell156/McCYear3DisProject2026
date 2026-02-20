@@ -8,7 +8,7 @@ public class WallColide : MonoBehaviour
         CheckForWalls();
     }
 
-    private void CheckForWalls()
+    public void CheckForWalls()
     {
         //Debug.Log("Checking for walls...");
         Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity);

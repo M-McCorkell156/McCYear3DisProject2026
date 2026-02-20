@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class WinConditionUI : MonoBehaviour
 {
@@ -33,6 +34,19 @@ public class WinConditionUI : MonoBehaviour
     private bool gotPower;
     private bool canEscape;
 
+    [SerializeField] private bool tutorial;
+    [SerializeField] private GameObject Door1;
+    [SerializeField] private GameObject Door2;
+
+    [SerializeField] private MainMenu mainMenu;
+    [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
+
+    [SerializeField] private GameObject BlockBoxes_1;
+    [SerializeField] private GameObject BlockBoxes_2;
+
+    [SerializeField] private GridManager gridManager;
+
+
     void Start()
     {
         gotKey = false;
@@ -53,6 +67,9 @@ public class WinConditionUI : MonoBehaviour
         Power.SetActive(false);
         PowerOutline.SetActive(true);
 
+        BlockBoxes_1.SetActive(true);
+        BlockBoxes_2.SetActive(true);
+
         GameStateManager.LockPickWin += GotKey;
         GameStateManager.SearchFinished += GotTire;
         GameStateManager.WeaponGot += GotBat;
@@ -64,9 +81,38 @@ public class WinConditionUI : MonoBehaviour
     {
         if (!gotKey)
         {
+            //Debug.Log("key");
+
             Keys.SetActive(true);
             KeysOutline.SetActive(false);
             gotKey = true;
+
+            if (tutorial)
+            {
+                //Debug.Log("yes tut");
+                changeSelectedCharacter.UnlockSwitching();
+                StartCoroutine(OpenDoor(Door1));
+
+                if (BlockBoxes_1 != null)
+                {
+                    foreach (BoxCollider box in BlockBoxes_1.GetComponentsInChildren<BoxCollider>())
+                    {
+                        if (box != null)
+                            box.enabled = false;
+                    }
+                }
+            }
+        }
+    }
+
+    private IEnumerator OpenDoor(GameObject door)
+    {
+        //Debug.Log(door.transform.rotation.eulerAngles.y);
+
+        while (door.transform.rotation.eulerAngles.y < 180)
+        {
+            door.transform.Rotate(0, 90 * Time.deltaTime, 0);
+            yield return null;
         }
     }
     void GotBat()
@@ -94,9 +140,16 @@ public class WinConditionUI : MonoBehaviour
     {
         {
             if (!gotPower)
-            gotPower = true;
+                gotPower = true;
             Power.SetActive(true);
             PowerOutline.SetActive(false);
+
+            if (tutorial)
+            {
+                //Debug.Log("yes tut");
+                StartCoroutine(OpenDoor(Door2));
+                BlockBoxes_2.SetActive(false);
+            }
         }
     }
 
@@ -120,10 +173,18 @@ public class WinConditionUI : MonoBehaviour
             onceLeave = true;
             CanLeave();
         }
-        if(onceLeave && canEscape)
+        if (onceLeave && canEscape)
         {
             winText.SetActive(true);
+            StartCoroutine(LoadMainMenu());
+            onceLeave = false;
         }
 
+    }
+
+    private IEnumerator LoadMainMenu()
+    {
+        yield return new WaitForSeconds(5);
+        mainMenu.PlayMenu();
     }
 }
