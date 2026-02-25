@@ -31,6 +31,11 @@ public class ChangeSelectedCharacter : MonoBehaviour
     {
         canSwitch = true;
     }
+
+    public bool CanSwitch()
+    {
+        return canSwitch;
+    }
     public void ChangeCharacter()
     {
         //Debug.Log("Changing Character");

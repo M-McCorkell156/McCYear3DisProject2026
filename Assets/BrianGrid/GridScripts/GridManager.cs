@@ -35,6 +35,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int storedPlayer2TurnCount;
     private int totalTurnCount;
 
+
+    [SerializeField] private bool isTimeOn;
+    [SerializeField] private bool isMoving;
+    [SerializeField] private ActionManager actionManager;
+
     [SerializeField] private TextMeshProUGUI plyAshTurnCount;
     [SerializeField] private TextMeshProUGUI plyJoeTurnCount;
 
@@ -44,6 +49,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] public List<Vector2> Powertiles = new List<Vector2>();
     [SerializeField] public List<Vector2> EscapeTiles = new List<Vector2>();
     public List<Vector2> Walltiles = new List<Vector2>();
+
+    [SerializeField] private List<Vector2> BlockedTiles1;
+    [SerializeField] private List<Vector2> BlockedTiles2;
 
     public static event FreezeTileMove freeze;
 
@@ -219,6 +227,13 @@ public class GridManager : MonoBehaviour
                 break;
         }
     }
+    public int GetPlayerTurnLimit()
+    {
+        if(changeSelectedCharacter.CanSwitch())
+            return playerTurnLimit * 2;
+        else
+            return playerTurnLimit;
+    }
 
     public void OnTileClicked(int x, int y)
     {
@@ -229,6 +244,10 @@ public class GridManager : MonoBehaviour
 
         if (!IsValidTile(x, y))
             return;
+
+        if (isMoving)
+            return;
+
         Vector2Int center = currentGridMover.GetCurrentGridPos();
 
         for (int v = 0; v < width; v++)
@@ -239,193 +258,223 @@ public class GridManager : MonoBehaviour
 
                 if (distance + tiles[v, w].moveCost <= PlayerTileRange && v == x && y == w && thisPlayerTurnCount < playerTurnLimit)
                 {
+                    //Debug.Log("Click unlocked");
+                    isMoving = true;
                     thisPlayerTurnCount++;
                     UpdateUI();
+
+                    if (!isTimeOn)
+                    {
+                        actionManager.TurnClock();
+                    }
+
                     currentGridMover.MoveToTile(x, y);
+                    Invoke("UnlockClick", 0.2f);
                     return;
                 }
-                else
-                {
-                    //Debug.Log("out range: " + distance);
-                }
             }
         }
     }
-    public void HighlightRange(Vector2Int center, int range)
+
+    public void ClearBlockedTiles1()
     {
-        ClearHighlights();
-        for (int x = 0; x < width; x++)
+        foreach (Vector2 blockedPos in BlockedTiles1)
         {
-            for (int y = 0; y < height; y++)
+                tiles[(int)blockedPos.x,(int)blockedPos.y].isWalkable = true;
+                tiles[(int)blockedPos.x, (int)blockedPos.y].ResetColor();          
+        }
+    }
+
+    public void ClearBlockedTiles2()
+    {
+        foreach (Vector2 blockedPos in BlockedTiles1)
+        {
+            tiles[(int)blockedPos.x, (int)blockedPos.y].isWalkable = true;
+            tiles[(int)blockedPos.x, (int)blockedPos.y].ResetColor();
+        }
+    }
+
+
+    private void UnlockClick()
+{
+    //Debug.Log("Click unlocked");
+    isMoving = false;
+}
+public void HighlightRange(Vector2Int center, int range)
+{
+    ClearHighlights();
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+            int distance = Mathf.Abs(x - center.x) + Mathf.Abs(y - center.y);
+            //Debug.Log("Distance: " + distance  + " Center: " + center + " Tile: (" + x + "," + y + ")");
+            if (distance + tiles[x, y].moveCost <= range && thisPlayerTurnCount < playerTurnLimit)
             {
-                int distance = Mathf.Abs(x - center.x) + Mathf.Abs(y - center.y);
-                //Debug.Log("Distance: " + distance  + " Center: " + center + " Tile: (" + x + "," + y + ")");
-                if (distance + tiles[x, y].moveCost <= range && thisPlayerTurnCount < playerTurnLimit)
+                if (tiles[x, y] != null)
                 {
-                    if (tiles[x, y] != null)
+                    if (tiles[x, y].isWalkable && tiles[x, y].GetComponent<InteractiveTile>() == null)
                     {
-                        if (tiles[x, y].isWalkable && tiles[x, y].GetComponent<InteractiveTile>() == null)
-                        {
-                            tiles[x, y].Highlight(Color.cyan);
-                        }
-                        else if (tiles[x, y].GetComponent<InteractiveTile>() != null)
-                        {
-                            tiles[x, y].Highlight(Color.magenta);
-                        }
-                        else
-                            tiles[x, y].Highlight(Color.red);
+                        tiles[x, y].Highlight(Color.cyan);
                     }
+                    else if (tiles[x, y].GetComponent<InteractiveTile>() != null)
+                    {
+                        tiles[x, y].Highlight(Color.magenta);
+                    }
+                    else
+                        tiles[x, y].Highlight(Color.red);
                 }
             }
         }
     }
+}
 
-    public void ClearHighlights()
+public void ClearHighlights()
+{
+    for (int x = 0; x < width; x++)
     {
-        for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
         {
-            for (int y = 0; y < height; y++)
-            {
-                if(tiles[x, y] == null)
-                    continue;
-                if (tiles[x, y] != null && tiles[x, y].GetComponent<InteractiveTile>() == null)
-                    tiles[x, y].ResetColor();
+            if (tiles[x, y] == null)
+                continue;
+            if (tiles[x, y] != null && tiles[x, y].GetComponent<InteractiveTile>() == null)
+                tiles[x, y].ResetColor();
 
-                tiles[x, y].moveCost = 1;
-            }
+            tiles[x, y].moveCost = 1;
         }
     }
+}
 
-    public void OnPlayerArrivedAtTile(Vector2Int pos)
+public void OnPlayerArrivedAtTile(Vector2Int pos)
+{
+    HighlightRange(pos, PlayerTileRange); // Example: highlight around player
+}
+
+public void SetPlayerPosition(Vector2Int pos)
+{
+    HighlightRange(pos, PlayerTileRange);
+}
+
+public void ResetHighlights()
+{
+    ClearHighlights();
+    HighlightRange(currentGridMover.GetCurrentGridPos(), PlayerTileRange);
+}
+
+public void SetCurrentCharacter()
+{
+    currentCharacterObject = changeSelectedCharacter.GetCurrentCharacterObject();
+    currentGridMover = currentCharacterObject.GetComponent<GridMover>();
+
+    switch (changeSelectedCharacter.GetCharacter())
     {
-        HighlightRange(pos, PlayerTileRange); // Example: highlight around player
+        case Characters.Ashley:
+            storedPlayer2TurnCount = thisPlayerTurnCount;
+            thisPlayerTurnCount = 0 + storedPlayer1TurnCount;
+            break;
+        case Characters.Joe:
+            storedPlayer1TurnCount = thisPlayerTurnCount;
+            thisPlayerTurnCount = 0 + storedPlayer2TurnCount;
+            break;
     }
 
-    public void SetPlayerPosition(Vector2Int pos)
+    if (changeSelectedCharacter.GetCharacter() == currentFrozenCharacter)
     {
-        HighlightRange(pos, PlayerTileRange);
-    }
-
-    public void ResetHighlights()
-    {
-        ClearHighlights();
-        HighlightRange(currentGridMover.GetCurrentGridPos(), PlayerTileRange);
-    }
-
-    public void SetCurrentCharacter()
-    {
-        currentCharacterObject = changeSelectedCharacter.GetCurrentCharacterObject();
-        currentGridMover = currentCharacterObject.GetComponent<GridMover>();
-
-        switch (changeSelectedCharacter.GetCharacter())
-        {
-            case Characters.Ashley:
-                storedPlayer2TurnCount = thisPlayerTurnCount;
-                thisPlayerTurnCount = 0 + storedPlayer1TurnCount;
-                break;
-            case Characters.Joe:
-                storedPlayer1TurnCount = thisPlayerTurnCount;
-                thisPlayerTurnCount = 0 + storedPlayer2TurnCount;
-                break;
-        }
-
-        if (changeSelectedCharacter.GetCharacter() == currentFrozenCharacter)
-        {
-            freeze();
-            //Debug.Log("current char freeze");
-
-        }
-        else
-        {
-            unfreeze();
-            //Debug.Log("current char unfreeze");
-        }
-    }
-
-    public void SetPoweredCharacter()
-    {
-        poweredCurrentCharacterObj = currentCharacterObject;
-    }
-
-    public GameStateManager GetPoweredGameStateManager()
-    {
-        SetCurrentCharacter();
-        if (poweredCurrentCharacterObj.gameObject.GetComponentInChildren<GameStateManager>() != null)
-        {
-            return poweredCurrentCharacterObj.gameObject.GetComponentInChildren<GameStateManager>();
-        }
-        else
-        {
-            return null;
-        }
-    }
-    public void FreezeCurrentGridMover()
-    {
-        //Debug.Log("freeze");
-        Characters currentCharacter;
-        currentCharacter = changeSelectedCharacter.GetCharacter();
-        switch (currentCharacter)
-        {
-            case Characters.Ashley:
-                currentFrozenCharacter = Characters.Ashley;
-                break;
-            case Characters.Joe:
-                currentFrozenCharacter = Characters.Joe;
-                break;
-        }
-
-        currentGridMover.FreezeGridMoves();
-
-        if (freeze != null)
-            freeze();
+        freeze();
+        //Debug.Log("current char freeze");
 
     }
-
-    public void UnfreezeCurrentGridMover()
+    else
     {
-        //Debug.Log("unfreeze");
-        currentFrozenCharacter = Characters.None;
-        Characters currentCharacter;
-        currentCharacter = changeSelectedCharacter.GetCharacter();
+        unfreeze();
+        //Debug.Log("current char unfreeze");
+    }
+}
 
-        switch (currentCharacter)
-        {
-            case Characters.Ashley:
-                if (currentGridMover)
-                    currentGridMover.UnfreezeGridMoves();
+public void SetPoweredCharacter()
+{
+    poweredCurrentCharacterObj = currentCharacterObject;
+}
 
-                if (unfreeze != null) unfreeze();
-                changeSelectedCharacter.SelectJoe();
-                SetCurrentCharacter();
+public GameStateManager GetPoweredGameStateManager()
+{
+    SetCurrentCharacter();
+    if (poweredCurrentCharacterObj.gameObject.GetComponentInChildren<GameStateManager>() != null)
+    {
+        return poweredCurrentCharacterObj.gameObject.GetComponentInChildren<GameStateManager>();
+    }
+    else
+    {
+        return null;
+    }
+}
+public void FreezeCurrentGridMover()
+{
+    //Debug.Log("freeze");
+    Characters currentCharacter;
+    currentCharacter = changeSelectedCharacter.GetCharacter();
+    switch (currentCharacter)
+    {
+        case Characters.Ashley:
+            currentFrozenCharacter = Characters.Ashley;
+            break;
+        case Characters.Joe:
+            currentFrozenCharacter = Characters.Joe;
+            break;
+    }
+
+    currentGridMover.FreezeGridMoves();
+
+    if (freeze != null)
+        freeze();
+
+}
+
+public void UnfreezeCurrentGridMover()
+{
+    //Debug.Log("unfreeze");
+    currentFrozenCharacter = Characters.None;
+    Characters currentCharacter;
+    currentCharacter = changeSelectedCharacter.GetCharacter();
+
+    switch (currentCharacter)
+    {
+        case Characters.Ashley:
+            if (currentGridMover)
                 currentGridMover.UnfreezeGridMoves();
-                if (unfreeze != null) unfreeze();
-                changeSelectedCharacter.SelectAshley();
-                SetCurrentCharacter();
-                break;
-            case Characters.Joe:
-                if (currentGridMover)
-                    currentGridMover.UnfreezeGridMoves();
-                if (unfreeze != null) unfreeze();
-                changeSelectedCharacter.SelectAshley();
-                SetCurrentCharacter();
+
+            if (unfreeze != null) unfreeze();
+            changeSelectedCharacter.SelectJoe();
+            SetCurrentCharacter();
+            currentGridMover.UnfreezeGridMoves();
+            if (unfreeze != null) unfreeze();
+            changeSelectedCharacter.SelectAshley();
+            SetCurrentCharacter();
+            break;
+        case Characters.Joe:
+            if (currentGridMover)
                 currentGridMover.UnfreezeGridMoves();
-                if (unfreeze != null) unfreeze();
-                changeSelectedCharacter.SelectJoe();
-                SetCurrentCharacter();
-                break;
-        }
-
+            if (unfreeze != null) unfreeze();
+            changeSelectedCharacter.SelectAshley();
+            SetCurrentCharacter();
+            currentGridMover.UnfreezeGridMoves();
+            if (unfreeze != null) unfreeze();
+            changeSelectedCharacter.SelectJoe();
+            SetCurrentCharacter();
+            break;
     }
 
-    public void ReplaceInteractibleTile()
-    {
-        //Debug.Log("replace");
-        Vector2Int currentGridPos = currentGridMover.GetCurrentGridPos();
-        GameObject currentTileObj = tiles[currentGridPos.x, currentGridPos.y].gameObject;
-        //Debug.Log("Destroying " + currentTileObj);
-        Destroy(currentTileObj.GetComponent<InteractiveTile>());
-        ResetHighlights();
-    }
+}
+
+public void ReplaceInteractibleTile()
+{
+    //Debug.Log("replace");
+    Vector2Int currentGridPos = currentGridMover.GetCurrentGridPos();
+    GameObject currentTileObj = tiles[currentGridPos.x, currentGridPos.y].gameObject;
+    //Debug.Log("Destroying " + currentTileObj);
+    Destroy(currentTileObj.GetComponent<InteractiveTile>());
+    ResetHighlights();
+}
 
 
 }

@@ -93,14 +93,7 @@ public class WinConditionUI : MonoBehaviour
                 changeSelectedCharacter.UnlockSwitching();
                 StartCoroutine(OpenDoor(Door1));
 
-                if (BlockBoxes_1 != null)
-                {
-                    foreach (BoxCollider box in BlockBoxes_1.GetComponentsInChildren<BoxCollider>())
-                    {
-                        if (box != null)
-                            box.enabled = false;
-                    }
-                }
+                gridManager.ClearBlockedTiles1();
             }
         }
     }
@@ -149,6 +142,7 @@ public class WinConditionUI : MonoBehaviour
                 //Debug.Log("yes tut");
                 StartCoroutine(OpenDoor(Door2));
                 BlockBoxes_2.SetActive(false);
+                gridManager.ClearBlockedTiles2();
             }
         }
     }

@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private TimeManager timeManager;
 
     public bool IsPlayerTurn = true;
-
+    [SerializeField] private bool isTimeOn; 
     [Range(10, 60)] public float turnTimeLimit;
 
     [SerializeField] private GameObject handToTurn;
@@ -81,6 +81,12 @@ public class TurnManager : MonoBehaviour
         if (unfreezeMoves != null)
         {
             unfreezeMoves();
+        }
+
+        if (!isTimeOn)
+        {
+            IsPlayerTurn = true;
+            return;
         }
 
         timeCountdown = turnTimeLimit;
