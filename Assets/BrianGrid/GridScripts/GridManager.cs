@@ -275,7 +275,6 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-
     public void ClearBlockedTiles1()
     {
         foreach (Vector2 blockedPos in BlockedTiles1)
@@ -287,7 +286,7 @@ public class GridManager : MonoBehaviour
 
     public void ClearBlockedTiles2()
     {
-        foreach (Vector2 blockedPos in BlockedTiles1)
+        foreach (Vector2 blockedPos in BlockedTiles2)
         {
             tiles[(int)blockedPos.x, (int)blockedPos.y].isWalkable = true;
             tiles[(int)blockedPos.x, (int)blockedPos.y].ResetColor();

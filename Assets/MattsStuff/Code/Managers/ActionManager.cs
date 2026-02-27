@@ -28,6 +28,4 @@ public class ActionManager : MonoBehaviour
         turnCount = 0;
         handToTurn.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0);
     }   
-
-
 }

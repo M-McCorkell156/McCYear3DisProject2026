@@ -22,8 +22,7 @@ public class EscapeScript : MonoBehaviour
             //Debug.Log("2 on");
             char2Exit = true;
             foreach (GameStateManager gameManager in gameStateManagers)
-            {
-                
+            {               
                 //Debug.Log("unfreeze");
             }
         }

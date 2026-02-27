@@ -46,6 +46,9 @@ public class WinConditionUI : MonoBehaviour
 
     [SerializeField] private GridManager gridManager;
 
+    [SerializeField] private GameObject SwitchLock;
+
+    [SerializeField] private GameObject Enemy; 
 
     void Start()
     {
@@ -75,8 +78,17 @@ public class WinConditionUI : MonoBehaviour
         GameStateManager.WeaponGot += GotBat;
         GameStateManager.PowerOn += GotPower;
         GameStateManager.Escape += OnEscape;
-    }
 
+        if (tutorial)
+        {
+            SwitchLock.SetActive(true);
+            Enemy.SetActive(false);
+        }
+    }
+    public bool IsTutorial()
+    {
+        return tutorial;
+    }   
     void GotKey()
     {
         if (!gotKey)
@@ -91,6 +103,7 @@ public class WinConditionUI : MonoBehaviour
             {
                 //Debug.Log("yes tut");
                 changeSelectedCharacter.UnlockSwitching();
+                SwitchLock.SetActive(false);
                 StartCoroutine(OpenDoor(Door1));
 
                 gridManager.ClearBlockedTiles1();
@@ -143,6 +156,7 @@ public class WinConditionUI : MonoBehaviour
                 StartCoroutine(OpenDoor(Door2));
                 BlockBoxes_2.SetActive(false);
                 gridManager.ClearBlockedTiles2();
+                Enemy.SetActive(true);
             }
         }
     }

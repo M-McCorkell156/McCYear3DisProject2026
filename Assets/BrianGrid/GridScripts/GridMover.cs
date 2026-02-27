@@ -174,7 +174,7 @@ public class GridMover : MonoBehaviour
     }
     private void SetEscape()
     {
-        Debug.Log("escape allowed");
+        //Debug.Log("escape allowed");
         canExit = true;
     }
 }
