@@ -8494,7 +8494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   damageAmount: 1
-  thisPlayersHealth: {fileID: 0}
+  thisPlayersHealth: {fileID: 1109741697}
 --- !u!1 &756387169
 GameObject:
   m_ObjectHideFlags: 0
@@ -14273,7 +14273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   damageAmount: 1
-  thisPlayersHealth: {fileID: 0}
+  thisPlayersHealth: {fileID: 911145359}
 --- !u!43 &1256948581
 Mesh:
   m_ObjectHideFlags: 0
