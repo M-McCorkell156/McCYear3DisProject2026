@@ -55,7 +55,7 @@ public class GridMover : MonoBehaviour
         transform.position = targetWorldPos;
 
         gridManager.SetPlayerPosition(currentGridPos);
-        
+
         LockpickingMiniGame.freezeGridMove += FreezeGridMoves;
         LockpickingMiniGame.unfreezeGridMoves += UnfreezeGridMoves;
         TurnManager.freezeMoves += FreezeGridMoves;
@@ -67,7 +67,7 @@ public class GridMover : MonoBehaviour
 
     private void Update()
     {
-        if (isFreeze) 
+        if (isFreeze)
         {
             //Debug.Log("frozen");
             return;
@@ -78,6 +78,7 @@ public class GridMover : MonoBehaviour
             //Debug.Log("moving");
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPos, moveSpeed * Time.deltaTime);
             Vector3 direction = (targetWorldPos - transform.position).normalized;
+
             if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -89,8 +90,15 @@ public class GridMover : MonoBehaviour
             {
                 transform.position = targetWorldPos;
                 isMoving = false;
-                animator.SetBool("isWalk",false);
-                gridManager.OnPlayerArrivedAtTile(currentGridPos);
+                animator.SetBool("isWalk", false);
+
+                if (gridManager != null)
+                {
+                    gridManager.OnPlayerArrivedAtTile(currentGridPos);
+                    gridManager.SetPlayerPosition(currentGridPos);
+                }
+
+                CheckForInteractive(currentGridPos);
             }
         }
     }
@@ -103,10 +111,9 @@ public class GridMover : MonoBehaviour
         targetWorldPos = gridManager.GetWorldPosition(x, y);
         currentGridPos = new Vector2Int(x, y);
         isMoving = true;
-        animator.SetBool("isWalk",true);
-        gridManager.SetPlayerPosition(currentGridPos);
-        CheckForInteractive(currentGridPos);
+        animator.SetBool("isWalk", true);
     }
+
 
     public Vector2Int GetCurrentGridPos() => currentGridPos;
 
@@ -148,7 +155,7 @@ public class GridMover : MonoBehaviour
             }
         }
 
-        bool isActive = false; 
+        bool isActive = false;
 
         foreach (Vector2 interactiveGridPos in gridManager.Powertiles)
         {
@@ -168,7 +175,7 @@ public class GridMover : MonoBehaviour
             {
                 Debug.Log("on Escape and can");
                 gridManager.ReplaceInteractibleTile();
-                ThisCharactersGSM.CharacterEscape();            
+                ThisCharactersGSM.CharacterEscape();
             }
         }
     }

@@ -4,6 +4,8 @@ public class ActionManager : MonoBehaviour
 {
     [SerializeField] private GridManager gridManager;
 
+    [SerializeField] private EnemyMover enemyMover;
+
     [SerializeField] private GameObject handToTurn;
 
     [SerializeField] private Animator animitor;
@@ -18,14 +20,24 @@ public class ActionManager : MonoBehaviour
 
         if (turnCount >= gridManager.GetPlayerTurnLimit())
         {
-            gridManager.ResetTurnCount();
-            ResetTurnClock();
+            gridManager.ClearHighlights();  
+            Invoke("EnemyPhase", 0.5f); 
         }
+    }
+    private void EnemyPhase()
+    {
+        enemyMover.TakeTurn();
+    }
+    public void EndOfActions()
+    {
+        gridManager.ResetTurnCount();
+        ResetTurnClock();
+        gridManager.ResetHighlights();
     }
 
     public void ResetTurnClock()
     {
         turnCount = 0;
         handToTurn.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0);
-    }   
+    }
 }

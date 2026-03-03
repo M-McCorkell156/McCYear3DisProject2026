@@ -82,7 +82,7 @@ public class WinConditionUI : MonoBehaviour
         if (tutorial)
         {
             SwitchLock.SetActive(true);
-            Enemy.SetActive(false);
+            //Enemy.SetActive(false);
         }
     }
     public bool IsTutorial()
@@ -156,7 +156,7 @@ public class WinConditionUI : MonoBehaviour
                 StartCoroutine(OpenDoor(Door2));
                 BlockBoxes_2.SetActive(false);
                 gridManager.ClearBlockedTiles2();
-                Enemy.SetActive(true);
+                //Enemy.SetActive(true);
             }
         }
     }
