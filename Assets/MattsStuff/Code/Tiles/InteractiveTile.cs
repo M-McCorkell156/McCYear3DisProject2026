@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-    public enum TileType
-    {
-        Puzzle,
-        Searchable,
-        Weapon,
-        Escape,
-        Power,
+public enum TileType
+{
+    Puzzle,
+    Searchable,
+    Weapon,
+    Escape,
+    Power,
 
-    }
+}
 public class InteractiveTile : MonoBehaviour
 {
     //makes tiles interactive
@@ -40,8 +40,28 @@ public class InteractiveTile : MonoBehaviour
         }
 
         TileSelector tile = GetComponent<TileSelector>();
+
         if (tile != null)
         {
+            switch (tileType)
+            {
+                case TileType.Puzzle:
+                    interactiveColor = Color.cyan;
+                    break;
+                case TileType.Searchable:
+                    interactiveColor = Color.yellow;
+                    break;
+                case TileType.Weapon:
+                    interactiveColor = Color.red;
+                    break;
+                case TileType.Escape:
+                    interactiveColor = Color.green;
+                    break;
+                case TileType.Power:
+                    interactiveColor = Color.blue;
+                    break;
+            }
+
             tile.Highlight(interactiveColor);
         }
     }

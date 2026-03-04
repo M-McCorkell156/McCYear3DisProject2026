@@ -10,9 +10,9 @@ public class TileSelector : MonoBehaviour
     private Color baseColor;
     private GridManager gridManager;
 
-    [HideInInspector] public int x, y;
-    [HideInInspector] public bool isWalkable = true;
-    [HideInInspector] public int moveCost = 1;
+    [SerializeField] public int x, y;
+    [SerializeField] public bool isWalkable = true;
+    [SerializeField] public int moveCost = 1;
 
     private bool isFreeze;
 

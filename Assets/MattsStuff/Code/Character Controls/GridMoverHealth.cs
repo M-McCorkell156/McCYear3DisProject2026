@@ -8,6 +8,8 @@ public class GridMoverHealth : MonoBehaviour
     [SerializeField] private int damageAmount = 1;   
 
     [SerializeField] private TextMeshProUGUI thisPlayersHealth;
+    [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
+    [SerializeField] private Animator animitor;
 
     private void Start()
     {
@@ -16,6 +18,7 @@ public class GridMoverHealth : MonoBehaviour
     }
     private void UpdateHealthUI()
     {
+
         thisPlayersHealth.text = currentHealth.ToString() + "/" + maxHealth.ToString();
     }   
 
@@ -28,11 +31,18 @@ public class GridMoverHealth : MonoBehaviour
             currentHealth = 0;
             PlayerDead();
         }
+        else
+        {
+            animitor.SetBool("IsHurt",true);
+        }
         UpdateHealthUI();
+        animitor.SetBool("IsHurt", false);
     }
 
     private void PlayerDead()
     {
-        // Handle player death (e.g., trigger game over, respawn, etc.)
+        animitor.SetBool("IsDead", true);
+        changeSelectedCharacter.ChangeCharacter();
+        changeSelectedCharacter.LockSwitching();
     }
 }

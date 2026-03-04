@@ -32,6 +32,11 @@ public class ChangeSelectedCharacter : MonoBehaviour
         canSwitch = true;
     }
 
+    public void LockSwitching()
+    {
+        canSwitch = false;
+    }
+
     public bool CanSwitch()
     {
         return canSwitch;

@@ -159,6 +159,7 @@ public class EnemyMover : MonoBehaviour
             {
                 //Debug.Log("Enemy reached player and attacks!");
                 AttackPlayer();
+                isMoving = false;   
             }
         }
     }
@@ -174,9 +175,12 @@ public class EnemyMover : MonoBehaviour
 
     public void AttackPlayer()
     {
-        Debug.Log("Enemy attacks player!");
+        //Debug.Log("Enemy attacks player!");        
+        animator.SetBool("IsAttack", true);
         targetPlayer.GetComponent<GridMoverHealth>().TakeDamage();
+
         EndTurn();
+        animator.SetBool("IsAttack", false);
 
         Invoke(nameof(CallEndofActions), 1f);
     }

@@ -7395,8 +7395,10 @@ MonoBehaviour:
   actionManager: {fileID: 1463051219}
   plyAshTurnCount: {fileID: 1053598604}
   plyJoeTurnCount: {fileID: 462322197}
-  SearchableTilesList: []
-  WeaponTile: []
+  SearchableTilesList:
+  - {x: 25, y: 3}
+  WeaponTile:
+  - {x: 28, y: 0}
   Puzzletiles:
   - {x: 6, y: 2}
   Powertiles:
@@ -7409,9 +7411,9 @@ MonoBehaviour:
   BlockedTiles1:
   - {x: 10, y: 1}
   - {x: 10, y: 2}
+  - {x: 11, y: 1}
   - {x: 11, y: 2}
-  - {x: 11, y: 2}
-  - {x: 12, y: 2}
+  - {x: 12, y: 1}
   - {x: 12, y: 2}
   BlockedTiles2:
   - {x: 21, y: 1}
@@ -8495,6 +8497,8 @@ MonoBehaviour:
   maxHealth: 3
   damageAmount: 1
   thisPlayersHealth: {fileID: 1109741697}
+  changeSelectedCharacter: {fileID: 2121452324}
+  animitor: {fileID: 144738677}
 --- !u!1 &756387169
 GameObject:
   m_ObjectHideFlags: 0
@@ -14274,6 +14278,8 @@ MonoBehaviour:
   maxHealth: 3
   damageAmount: 1
   thisPlayersHealth: {fileID: 911145359}
+  changeSelectedCharacter: {fileID: 2121452324}
+  animitor: {fileID: 316432136}
 --- !u!43 &1256948581
 Mesh:
   m_ObjectHideFlags: 0

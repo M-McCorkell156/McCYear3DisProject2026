@@ -178,6 +178,7 @@ public class GridManager : MonoBehaviour
                     if (intGridPos.x == x && intGridPos.y == y)
                     {
                         tileObj.AddComponent<InteractiveTile>().tileType = TileType.Escape;
+
                         //tileObj.AddComponent<Outline>();
                     }
                 }
