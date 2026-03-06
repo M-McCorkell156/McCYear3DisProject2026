@@ -41,6 +41,7 @@ public class GridMoverHealth : MonoBehaviour
 
     private void PlayerDead()
     {
+        Debug.Log("Player is Dead");
         animitor.SetBool("IsDead", true);
         changeSelectedCharacter.ChangeCharacter();
         changeSelectedCharacter.LockSwitching();

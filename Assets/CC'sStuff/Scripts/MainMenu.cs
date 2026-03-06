@@ -7,13 +7,15 @@ public class MainMenu : MonoBehaviour
 {
     private bool tutorialPlayed = false;
 
+
     public void PlayMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void PlayTutorial()
+    public void PlayTutorial()
     {
+        Debug.Log("Playing Tutorial :"+ SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         tutorialPlayed = true;
     }
@@ -36,11 +38,11 @@ public class MainMenu : MonoBehaviour
 
     private bool CheckForPlay()
     {
-        if (!tutorialPlayed)
-        {
-            PlayTutorial();
-            return false;
-        }
+        //if (!tutorialPlayed)
+        //{
+        //    PlayTutorial();
+        //    return false;
+        //}
         return true;
     }
 

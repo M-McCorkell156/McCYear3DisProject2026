@@ -6,16 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/CC'sStuff/Scenes/Main Menu.unity
-    guid: fa0e2d314dd4f084b90f1af3317875ef
+    path: Assets/MattsStuff/Scenes/MainMenu_3D.unity
+    guid: 8d3274f26c735374592ccea52ff74cb9
   - enabled: 1
     path: Assets/MattsStuff/Scenes/Tutorial/Tutorial_Level.unity
     guid: e3c19b537ad1be449b821fb98b30de1f
-  - enabled: 1
-    path: Assets/MattsStuff/Scenes/Level_1_TheMilkman/Level_1_TheMilkman.unity
-    guid: ca1d641d96fc076499dd4e12f9a34c3c
-  - enabled: 1
-    path: Assets/MattsStuff/Scenes/Level_2_NHS/Level_2_NHS.unity
-    guid: 61d1e0b22e4c9f04d8b6e4303ee08425
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

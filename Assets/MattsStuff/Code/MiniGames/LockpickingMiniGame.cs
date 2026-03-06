@@ -237,6 +237,7 @@ public class LockpickingMiniGame : MonoBehaviour
         {
            timeManager.RecordTime(TimeEventType.MiniGameCancel);
         }
+
         this.gameObject.SetActive(false);
 
     }

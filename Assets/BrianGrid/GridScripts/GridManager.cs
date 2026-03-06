@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using System.Net;
 
 
 public class GridManager : MonoBehaviour
@@ -222,14 +223,20 @@ public class GridManager : MonoBehaviour
 
     private void UpdateUI()
     {
+        //if (!changeSelectedCharacter.ShouldSwitch())
+        //    return;
+        //Debug.Log(changeSelectedCharacter.GetCharacter());
         switch (changeSelectedCharacter.GetCharacter())
         {
+            
             case Characters.Ashley:
+                //Debug.Log("Ashley Turn Count: " + thisPlayerTurnCount + " Stored Player 2 Turn Count: " + storedPlayer2TurnCount);
                 plyAshTurnCount.text = playerTurnLimit - thisPlayerTurnCount + "/" + playerTurnLimit;
                 plyJoeTurnCount.text = playerTurnLimit - storedPlayer2TurnCount + "/" + playerTurnLimit;
                 break;
 
             case Characters.Joe:
+                //Debug.Log("Joe Turn Count: " + thisPlayerTurnCount + " Stored Player 2 Turn Count: " + storedPlayer2TurnCount);
                 plyAshTurnCount.text = playerTurnLimit - storedPlayer1TurnCount + "/" + playerTurnLimit;
                 plyJoeTurnCount.text = playerTurnLimit - thisPlayerTurnCount + "/" + playerTurnLimit;
                 break;
@@ -237,7 +244,7 @@ public class GridManager : MonoBehaviour
     }
     public int GetPlayerTurnLimit()
     {
-        if (changeSelectedCharacter.CanSwitch())
+        if (changeSelectedCharacter.ShouldSwitch())
             return playerTurnLimit * 2;
         else
             return playerTurnLimit;

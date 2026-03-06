@@ -10,6 +10,7 @@ public class EnemyMover : MonoBehaviour
     private AStarPathfinding pathfinder;
     [SerializeField] private ActionManager actionManager;
     [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
+    [SerializeField] private WinConditionUI winConditionUI;
     [SerializeField] private Animator animator;
 
     private Vector2Int currentGridPos;
@@ -38,7 +39,8 @@ public class EnemyMover : MonoBehaviour
         grid = FindObjectOfType<GridManager>();
         pathfinder = FindObjectOfType<AStarPathfinding>();
         IsSet = false;
-        Killer.SetActive(false);
+        if(winConditionUI.IsTutorial())
+            Killer.SetActive(false);
     }
 
     // ---------------------------------------------------------
@@ -46,7 +48,7 @@ public class EnemyMover : MonoBehaviour
     // ---------------------------------------------------------
     public void TakeTurn()
     {
-        changeSelectedCharacter.
+        changeSelectedCharacter.FreezeSwitching();
         if (!Killer.activeSelf)
         {
             Killer.SetActive(true);
