@@ -20,11 +20,12 @@ public class ActionManager : MonoBehaviour
 
         if (turnCount >= gridManager.GetPlayerTurnLimit())
         {
-            gridManager.ClearHighlights();  
+            gridManager.ClearHighlights();
+            
             Invoke("EnemyPhase", 0.5f); 
         }
     }
-    private void EnemyPhase()
+    public void EnemyPhase()
     {
         enemyMover.TakeTurn();
     }

@@ -56,11 +56,17 @@ public class GridManager : MonoBehaviour
     public static event FreezeTileMove freeze;
 
     public static event FreezeTileMove unfreeze;
+
+    [SerializeField] private GameObject Move;
+    [SerializeField] private GameObject Tiles;
+
     private void Awake()
     {
         GenerateGrid();
         storedPlayer1TurnCount = 0;
         storedPlayer2TurnCount = 0;
+        Move.SetActive(true);
+        Tiles.SetActive(false);
         UpdateUI();
         LockpickingMiniGame.freezeGridMove += ClearHighlights;
         LockpickingMiniGame.unfreezeGridMoves += ClearHighlights;
@@ -70,6 +76,7 @@ public class GridManager : MonoBehaviour
         GridManager.unfreeze += ClearHighlights;
         currentFrozenCharacter = Characters.None;
         SetCurrentCharacter();
+
     }
 
     public void AddWallTile(string tileName)
@@ -342,6 +349,10 @@ public class GridManager : MonoBehaviour
 
     public void OnPlayerArrivedAtTile(Vector2Int pos)
     {
+        if (!Tiles.activeSelf)
+        {
+            Tiles.SetActive(true);
+        }
 
         actionManager.TurnClock();
         HighlightRange(pos, PlayerTileRange); // Example: highlight around player

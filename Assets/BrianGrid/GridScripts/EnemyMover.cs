@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +9,7 @@ public class EnemyMover : MonoBehaviour
     private GridManager grid;
     private AStarPathfinding pathfinder;
     [SerializeField] private ActionManager actionManager;
+    [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
     [SerializeField] private Animator animator;
 
     private Vector2Int currentGridPos;
@@ -31,11 +31,14 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     private GameObject lastCameraCharacter;
 
+    [SerializeField] private GameObject Killer;
+
     private void Start()
     {
         grid = FindObjectOfType<GridManager>();
         pathfinder = FindObjectOfType<AStarPathfinding>();
         IsSet = false;
+        Killer.SetActive(false);
     }
 
     // ---------------------------------------------------------
@@ -43,6 +46,12 @@ public class EnemyMover : MonoBehaviour
     // ---------------------------------------------------------
     public void TakeTurn()
     {
+        changeSelectedCharacter.
+        if (!Killer.activeSelf)
+        {
+            Killer.SetActive(true);
+        }
+
         IsSet = true;
         currentGridPos = grid.GetClosestGridPosition(transform.position);
 
@@ -52,17 +61,18 @@ public class EnemyMover : MonoBehaviour
         //Debug.Log("Enemy targeting player 1");
         moveToTile = new Vector2Int();
 
-        targetPlayer = players[0];
+        if (Mathf.Abs(Random.Range(1, 10) / 2) == 1 && changeSelectedCharacter.CanSwitch())
+        {
+            targetPlayer = players[1];
+        }
+        else
+        {
+            targetPlayer = players[0];
+        }
 
+        //Debug.Log(targetPlayer);
         moveToTile = grid.GetClosestGridPosition(targetPlayer.gameObject.transform.position);
 
-        //else
-        //{
-        //    Debug.Log("Enemy targeting player 2");
-        //    Vector2Int moveToTile = new Vector2Int();
-        //    moveToTile = grid.GetClosestGridPosition(players[1].gameObject.transform.position);
-
-        //    MoveTowardsPlayer(moveToTile);
 
         lastCameraCharacter = mainCamera.transform.parent.gameObject;
         mainCamera.transform.SetParent(transform);
@@ -70,7 +80,7 @@ public class EnemyMover : MonoBehaviour
         StartCoroutine(MoveCameraToCharacter(this.gameObject));
 
         Invoke(nameof(MoveTowardsPlayer), 1f);
-        //mainCamera.transform.localPosition = new Vector3( 25f, 45f, currentCharacter.transform.position.z); 
+        //mainCamera.transform.localPosition = new Vector3( 25f, 45f, currentCharacter.transform.position.z);        
     }
 
     private IEnumerator MoveCameraToCharacter(GameObject targetObj)
@@ -103,7 +113,7 @@ public class EnemyMover : MonoBehaviour
     // ---------------------------------------------------------
     // Move along the calculated path
     // ---------------------------------------------------------
-    private void Update()
+    public void Update()
     {
         if (!IsSet)
             return;
@@ -159,11 +169,11 @@ public class EnemyMover : MonoBehaviour
             {
                 //Debug.Log("Enemy reached player and attacks!");
                 AttackPlayer();
-                isMoving = false;   
+                isMoving = false;
             }
         }
     }
-    private void EndTurn()
+    public void EndTurn()
     {
         mainCamera.transform.SetParent(lastCameraCharacter.transform);
 
@@ -184,8 +194,10 @@ public class EnemyMover : MonoBehaviour
 
         Invoke(nameof(CallEndofActions), 1f);
     }
-    private void CallEndofActions()
+    public void CallEndofActions()
     {
+        grid.UnfreezeCurrentGridMover();
+        changeSelectedCharacter.UnFreezeSwitch();
         actionManager.EndOfActions();
     }
 }

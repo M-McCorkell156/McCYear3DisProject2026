@@ -17,9 +17,12 @@ public class ChangeSelectedCharacter : MonoBehaviour
     [SerializeField] private GameObject[] playableCharacters;
     public Characters character;
     private bool canSwitch;
+    private bool shouldSwitch;
 
     private void Start()
     {
+        canSwitch = false;
+        shouldSwitch = false;
         currentCharacter = playableCharacters[0];
         gridMover = currentCharacter.GetComponent<GridMover>();
         mainCamera.transform.SetParent(currentCharacter.transform);
@@ -29,12 +32,22 @@ public class ChangeSelectedCharacter : MonoBehaviour
     }
     public void UnlockSwitching()
     {
-        canSwitch = true;
+        shouldSwitch = true;
     }
 
     public void LockSwitching()
     {
+        shouldSwitch = false;
+    }
+
+    public void FreezeSwitching()
+    {
         canSwitch = false;
+    }
+
+    public void UnFreezeSwitch()
+    {
+        shouldSwitch = true;
     }
 
     public bool CanSwitch()
@@ -43,8 +56,9 @@ public class ChangeSelectedCharacter : MonoBehaviour
     }
     public void ChangeCharacter()
     {
-        //Debug.Log("Changing Character");
-        if (!canSwitch)
+        Debug.Log("Changing Character");
+        Debug.Log(canSwitch +":"+ shouldSwitch);
+        if (!canSwitch || !shouldSwitch)
             return;
 
         if (currentCharacter == playableCharacters[(int)character])

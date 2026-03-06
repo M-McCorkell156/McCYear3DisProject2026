@@ -27,6 +27,8 @@ public class GridMover : MonoBehaviour
 
     [SerializeField] private GameObject MeshObj;
 
+    [SerializeField] private GameObject tutorialTxt;
+
     private bool canExit;
 
     public void FreezeGridMoves()

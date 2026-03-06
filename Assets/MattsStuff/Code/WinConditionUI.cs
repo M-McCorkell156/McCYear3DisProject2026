@@ -48,8 +48,12 @@ public class WinConditionUI : MonoBehaviour
 
     [SerializeField] private GameObject SwitchLock;
 
-    [SerializeField] private GameObject Enemy; 
+    [SerializeField] private GameObject Enemy;
 
+    [SerializeField] private GameObject Switch; 
+    [SerializeField] private GameObject PowerTxt;
+    [SerializeField] private GameObject Collect;
+    [SerializeField] private GameObject Run;
     void Start()
     {
         gotKey = false;
@@ -73,6 +77,8 @@ public class WinConditionUI : MonoBehaviour
         BlockBoxes_1.SetActive(true);
         BlockBoxes_2.SetActive(true);
 
+        Switch.SetActive(false);
+
         GameStateManager.LockPickWin += GotKey;
         GameStateManager.SearchFinished += GotTire;
         GameStateManager.WeaponGot += GotBat;
@@ -82,6 +88,10 @@ public class WinConditionUI : MonoBehaviour
         if (tutorial)
         {
             SwitchLock.SetActive(true);
+            Switch.SetActive(false);
+            PowerTxt.SetActive(false);
+            Collect.SetActive(false);
+            Run.SetActive(false);
             //Enemy.SetActive(false);
         }
     }
@@ -107,6 +117,8 @@ public class WinConditionUI : MonoBehaviour
                 StartCoroutine(OpenDoor(Door1));
 
                 gridManager.ClearBlockedTiles1();
+                Switch.SetActive(true);
+                PowerTxt.SetActive(true);
             }
         }
     }
@@ -156,6 +168,7 @@ public class WinConditionUI : MonoBehaviour
                 StartCoroutine(OpenDoor(Door2));
                 BlockBoxes_2.SetActive(false);
                 gridManager.ClearBlockedTiles2();
+                Collect.SetActive(true);
                 //Enemy.SetActive(true);
             }
         }
@@ -164,10 +177,10 @@ public class WinConditionUI : MonoBehaviour
     void OnEscape()
     {
         characterCount += 1;
-        Debug.Log("EscapeNo: " + characterCount);
+        //Debug.Log("EscapeNo: " + characterCount);
         if (characterCount == 2)
         {
-            Debug.Log("2 Escape");
+            //Debug.Log("2 Escape");
             canEscape = true;
         }
     }
@@ -176,10 +189,11 @@ public class WinConditionUI : MonoBehaviour
     {
         if (gotKey && gotTire && gotBat && gotPower && !onceLeave && winText.gameObject.activeSelf == false)
         {
-            Debug.Log("can leave");
+            //Debug.Log("can leave");
             CanEscapeObj.SetActive(true);
             onceLeave = true;
             CanLeave();
+            Run.SetActive(true);
         }
         if (onceLeave && canEscape)
         {
