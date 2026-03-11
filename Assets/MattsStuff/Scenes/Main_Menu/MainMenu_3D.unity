@@ -347,8 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animitor: {fileID: 140707965}
   handToTurn: {fileID: 1091724751}
-  timeCountdown: 30
-  turnTimeLimit: 30
+  timeCountdown: 0
+  turnTimeLimit: 16
   Light: {fileID: 471772732}
 --- !u!95 &140707965
 Animator:

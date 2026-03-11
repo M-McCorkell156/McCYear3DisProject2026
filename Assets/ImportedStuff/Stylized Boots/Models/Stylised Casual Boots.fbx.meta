@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: bb95668c69bb877429ab6b54807b0c5a
+AssetOrigin:
+  serializedVersion: 1
+  productId: 325603
+  packageName: Stylized Boots
+  packageVersion: 1.0
+  assetPath: Assets/Stylized Boots/Models/Stylised Casual Boots.fbx
+  uploadId: 770664
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -35,7 +42,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -110,10 +117,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 325603
-  packageName: Stylized Boots
-  packageVersion: 1.0
-  assetPath: Assets/Stylized Boots/Models/Stylised Casual Boots.fbx
-  uploadId: 770664

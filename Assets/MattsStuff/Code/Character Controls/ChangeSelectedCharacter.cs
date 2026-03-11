@@ -6,6 +6,7 @@ public enum Characters
     Joe,
     None
 }
+
 public class ChangeSelectedCharacter : MonoBehaviour
 {
 

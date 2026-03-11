@@ -10,12 +10,14 @@ public class ClockLightMenu : MonoBehaviour
     [SerializeField] private GameObject Light;
     private void Start()
     {
-        StartCoroutine(MoveClock());
+        StartClock();
+        timeCountdown = turnTimeLimit;
         lightOff(); 
     }
 
     private IEnumerator MoveClock()
     {
+        //Debug.Log("Starting Clock");
         Quaternion newAngle;
         while (timeCountdown > 0)
         {
@@ -23,7 +25,7 @@ public class ClockLightMenu : MonoBehaviour
             newAngle = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, (timeCountdown / turnTimeLimit) * -360f);
             handToTurn.transform.localRotation = Quaternion.Lerp(Quaternion.identity, newAngle, 1f);
             animitor.SetTrigger("Tick");
-            if (turnTimeLimit / timeCountdown == 2)
+            if (Mathf.Round(turnTimeLimit / timeCountdown) == 2)
             {
                 //Debug.Log("Light on");
                 lightOn();
@@ -32,6 +34,13 @@ public class ClockLightMenu : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             timeCountdown--;
         }
+        StartClock();
+    }
+
+    private void StartClock()
+    {
+        timeCountdown = turnTimeLimit;
+        StartCoroutine(MoveClock());
     }
     private void lightOn()
     {
