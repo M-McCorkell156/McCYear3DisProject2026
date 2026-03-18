@@ -34,7 +34,7 @@ public class LockpickingMiniGame : MonoBehaviour
     [Header("Timers")]
     [SerializeField][Range(0.5f, 5f)] private float finishTime;
 
-    private float percentageTurn; //0-S1
+    [SerializeField]private float percentageTurn; //0-S1
 
     private Vector3 screenPosition;
     private float centreOfScreen;
@@ -92,7 +92,7 @@ public class LockpickingMiniGame : MonoBehaviour
 
             }
 
-            centreOfPick.transform.rotation = Quaternion.Euler(centreOfPick.transform.rotation.eulerAngles.x, centreOfPick.transform.rotation.eulerAngles.y, currentAngle);
+                centreOfPick.transform.localRotation = Quaternion.Euler(centreOfPick.transform.rotation.eulerAngles.x, centreOfPick.transform.rotation.eulerAngles.y,currentAngle);
 
             //Debug.Log(currentAngle);
             #endregion
