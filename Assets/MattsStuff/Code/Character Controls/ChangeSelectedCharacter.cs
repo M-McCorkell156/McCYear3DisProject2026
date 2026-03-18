@@ -66,7 +66,7 @@ public class ChangeSelectedCharacter : MonoBehaviour
     public void ChangeCharacter()
     {
         //Debug.Log(currentCharacter);
-        Debug.Log(canSwitch +":"+ shouldSwitch);
+        //Debug.Log(canSwitch +":"+ shouldSwitch);
 
         if (!canSwitch || !shouldSwitch)
             return;

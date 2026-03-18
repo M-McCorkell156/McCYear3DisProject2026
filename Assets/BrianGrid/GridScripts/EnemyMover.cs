@@ -39,7 +39,8 @@ public class EnemyMover : MonoBehaviour
         grid = FindObjectOfType<GridManager>();
         pathfinder = FindObjectOfType<AStarPathfinding>();
         IsSet = false;
-        if(winConditionUI.IsTutorial())
+
+        if (winConditionUI.IsTutorial())
             Killer.SetActive(false);
     }
 
@@ -187,15 +188,20 @@ public class EnemyMover : MonoBehaviour
 
     public void AttackPlayer()
     {
-        //Debug.Log("Enemy attacks player!");        
+        Debug.Log("Enemy attacks player!");
         animator.SetBool("IsAttack", true);
         targetPlayer.GetComponent<GridMoverHealth>().TakeDamage();
 
         EndTurn();
-        animator.SetBool("IsAttack", false);
+        Invoke(nameof(StopAttack), 0.5f);
 
         Invoke(nameof(CallEndofActions), 1f);
     }
+    private void StopAttack()
+    {
+        animator.SetBool("IsAttack", false);
+    }
+
     public void CallEndofActions()
     {
         grid.UnfreezeCurrentGridMover();

@@ -46,7 +46,7 @@ public class InteractiveTile : MonoBehaviour
             switch (tileType)
             {
                 case TileType.Puzzle:
-                    interactiveColor = Color.cyan;
+                    interactiveColor = Color.white;
                     break;
                 case TileType.Searchable:
                     interactiveColor = Color.yellow;

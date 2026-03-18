@@ -22,15 +22,17 @@ public class ClockLightMenu : MonoBehaviour
         while (timeCountdown > 0)
         {
             //Debug.Log("Countdown: " + timeCountdown);
-            newAngle = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, (timeCountdown / turnTimeLimit) * -360f);
+            newAngle = Quaternion.Euler((timeCountdown / turnTimeLimit) * -360f, Quaternion.identity.y,Quaternion.identity.z);
             handToTurn.transform.localRotation = Quaternion.Lerp(Quaternion.identity, newAngle, 1f);
             animitor.SetTrigger("Tick");
+
             if (Mathf.Round(turnTimeLimit / timeCountdown) == 2)
             {
                 //Debug.Log("Light on");
                 lightOn();
                 Invoke(nameof(lightOff), 0.2f);
             }
+
             yield return new WaitForSeconds(1.0f);
             timeCountdown--;
         }

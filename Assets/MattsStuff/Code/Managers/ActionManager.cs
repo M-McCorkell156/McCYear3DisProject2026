@@ -14,7 +14,7 @@ public class ActionManager : MonoBehaviour
     public void TurnClock()
     {
         turnCount++;
-        Quaternion newAngle = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, (turnCount / gridManager.GetPlayerTurnLimit()) * 360f);
+        Quaternion newAngle = Quaternion.Euler((turnCount / gridManager.GetPlayerTurnLimit()) * 360f, Quaternion.identity.y, Quaternion.identity.z);
 
         handToTurn.transform.localRotation = Quaternion.Lerp(Quaternion.identity, newAngle, 1f);
 
