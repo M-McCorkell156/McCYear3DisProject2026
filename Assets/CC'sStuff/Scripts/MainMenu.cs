@@ -7,8 +7,13 @@ public class MainMenu : MonoBehaviour
 {
     private bool tutorialPlayed = false;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private GameObject CharacterObj;
-    [SerializeField] private GameObject BooksObj;
+    [SerializeField] private List <GameObject> CharacterObj;
+    [SerializeField] private List <GameObject> BooksObj;
+    [SerializeField] private List <GameObject> TutObjs;
+    [SerializeField] private List <GameObject> Level_1Objs;
+    [SerializeField] private List <GameObject> Level_2Objs;
+    [SerializeField] private GameObject Begin;
+    [SerializeField] private float enableTime;
 
     private void Start()
     {
@@ -19,41 +24,107 @@ public class MainMenu : MonoBehaviour
     {
         HideCharacter();
         StartCoroutine(LerpCamera(105));
-        Invoke(nameof(EnableBooks), 1.5f);
+        Invoke(nameof(EnableBooks), enableTime);
     }
 
-    private IEnumerator LerpCamera(float xToRotate)
+     private IEnumerator LerpCamera(float xToRotate)
     {
-        Debug.Log("Starting LerpCamera with target X rotation: " + xToRotate);
-        while (Mathf.Abs(mainCamera.transform.rotation.eulerAngles.x - xToRotate) > 0.1f)
+        //Debug.Log("Starting LerpCamera with target X rotation: " + xToRotate);
+  
+        Quaternion targetRot = Quaternion.Euler(xToRotate, 0f, 0f);
+
+        while (Mathf.Abs(Mathf.DeltaAngle(mainCamera.transform.rotation.eulerAngles.x, xToRotate)) > 1)
         {
-            mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, Quaternion.Euler(xToRotate, 0, 0), Time.deltaTime * 2);
-            Debug.Log(mainCamera.transform.rotation.eulerAngles.x);
+            mainCamera.transform.rotation = Quaternion.RotateTowards(mainCamera.transform.rotation,targetRot, 20 * Time.deltaTime);
+
+            yield return null;
         }
+
+        mainCamera.transform.rotation = targetRot;
         yield return null;
     }
     private void EnableBooks()
     {
-        BooksObj.SetActive(true);
+        foreach (GameObject book in BooksObj)
+        {
+            book.SetActive(true);
+        }
     }
     private void HideBooks()
     {
-        BooksObj.SetActive(false);
+        HideBegin();
+
+        foreach (GameObject book in BooksObj)
+        {
+            book.SetActive(false);
+        }
+    }
+
+    public void TurnPage(int pageNumber)
+    {
+        HideAllBooks();
+
+        switch (pageNumber)
+        {
+            case 1:
+                ShowBook(Level_1Objs);
+                break;
+            case 2:
+                ShowBook(Level_2Objs);
+                break;
+
+            default:
+                ShowBook(TutObjs);
+                break;
+        }
+
+        ShowBegin();
+    }
+
+    private void ShowBegin()
+    {
+        Begin.SetActive(true);
+    }
+    
+    private void HideBegin()
+    {
+        Begin.SetActive(false);
+    }
+
+    private void ShowBook(List<GameObject> bookList)
+    {
+        foreach (GameObject book in bookList)
+        {
+            book.SetActive(true);
+        }
+    }
+    private void HideAllBooks()
+    {
+        foreach (GameObject book in BooksObj)
+        {
+            book.SetActive(false);
+        }
     }
 
     public void PlayCharacter()
     {
         HideBooks();
         StartCoroutine(LerpCamera(55));
-        Invoke(nameof(EnableCharacter), 1.5f);
+        Invoke(nameof(EnableCharacter), enableTime);
     }
     private void EnableCharacter()
     {
-        CharacterObj.SetActive(true);
+        foreach (GameObject character in CharacterObj)
+        {
+            character.SetActive(true);
+        }
     }
     private void HideCharacter()
     {
-        CharacterObj.SetActive(false);
+        foreach (GameObject character in CharacterObj)
+        {
+            character.SetActive(false);
+        }
     }
 
 
