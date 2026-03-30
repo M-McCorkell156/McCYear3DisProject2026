@@ -35,7 +35,7 @@ public class MainMenu : MonoBehaviour
 
         while (Mathf.Abs(Mathf.DeltaAngle(mainCamera.transform.rotation.eulerAngles.x, xToRotate)) > 1)
         {
-            mainCamera.transform.rotation = Quaternion.RotateTowards(mainCamera.transform.rotation,targetRot, 20 * Time.deltaTime);
+            mainCamera.transform.rotation = Quaternion.RotateTowards(mainCamera.transform.rotation,targetRot, 50 * Time.deltaTime);
 
             yield return null;
         }
@@ -62,7 +62,7 @@ public class MainMenu : MonoBehaviour
 
     public void TurnPage(int pageNumber)
     {
-        HideAllBooks();
+        HidePages();
 
         switch (pageNumber)
         {
@@ -98,9 +98,17 @@ public class MainMenu : MonoBehaviour
             book.SetActive(true);
         }
     }
-    private void HideAllBooks()
+    private void HidePages()
     {
-        foreach (GameObject book in BooksObj)
+        foreach (GameObject book in TutObjs)
+        {
+            book.SetActive(false);
+        }
+        foreach (GameObject book in Level_1Objs)
+        {
+            book.SetActive(false);
+        }
+        foreach (GameObject book in Level_2Objs)
         {
             book.SetActive(false);
         }
