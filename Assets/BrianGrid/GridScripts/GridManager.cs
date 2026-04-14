@@ -61,13 +61,18 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject Move;
     [SerializeField] private GameObject Tiles;
 
+    [SerializeField] private bool tutorial;
     private void Awake()
     {
         GenerateGrid();
         storedPlayer1TurnCount = 0;
         storedPlayer2TurnCount = 0;
-        Move.SetActive(true);
-        Tiles.SetActive(false);
+        if(tutorial)
+        {
+            Move.SetActive(true);
+            Tiles.SetActive(false);
+        }
+
         UpdateUI();
         LockpickingMiniGame.freezeGridMove += ClearHighlights;
         LockpickingMiniGame.unfreezeGridMoves += ClearHighlights;
@@ -356,7 +361,7 @@ public class GridManager : MonoBehaviour
 
     public void OnPlayerArrivedAtTile(Vector2Int pos)
     {
-        if (!Tiles.activeSelf)
+        if (tutorial)
         {
             Tiles.SetActive(true);
         }

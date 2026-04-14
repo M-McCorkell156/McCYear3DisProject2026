@@ -50,7 +50,8 @@ public class EnemyMover : MonoBehaviour
     public void TakeTurn()
     {
         changeSelectedCharacter.FreezeSwitching();
-        if (!Killer.activeSelf)
+
+        if (!Killer.activeSelf && winConditionUI.IsTutorial())
         {
             Killer.SetActive(true);
         }
@@ -66,10 +67,12 @@ public class EnemyMover : MonoBehaviour
 
         if (Mathf.Abs(Random.Range(1, 10) / 2) == 1 && changeSelectedCharacter.CanSwitch())
         {
+            Debug.Log("Enemy targeting player 1");
             targetPlayer = players[1];
         }
         else
         {
+            Debug.Log("Enemy targeting player 0");
             targetPlayer = players[0];
         }
 

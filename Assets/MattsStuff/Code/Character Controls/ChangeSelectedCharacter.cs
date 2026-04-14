@@ -22,11 +22,21 @@ public class ChangeSelectedCharacter : MonoBehaviour
     public Characters character;
     private bool canSwitch;
     private bool shouldSwitch;
+    [SerializeField] private bool tutorial;
 
     private void Start()
     {
+
         canSwitch = true;
-        shouldSwitch = false;
+        if (tutorial)
+        {
+            shouldSwitch = false;
+        }
+        else
+        {
+            shouldSwitch = true;
+        }
+
         currentCharacter = playableCharacters[0];
         gridMover = currentCharacter.GetComponent<GridMover>();
         mainCamera.transform.SetParent(currentCharacter.transform);

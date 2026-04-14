@@ -74,10 +74,13 @@ public class WinConditionUI : MonoBehaviour
         Power.SetActive(false);
         PowerOutline.SetActive(true);
 
-        BlockBoxes_1.SetActive(true);
-        BlockBoxes_2.SetActive(true);
+        if(tutorial)
+        {
+            BlockBoxes_1.SetActive(true);
+            BlockBoxes_2.SetActive(true);
 
-        Switch.SetActive(false);
+            Switch.SetActive(false);
+        }
 
         GameStateManager.LockPickWin += GotKey;
         GameStateManager.SearchFinished += GotTire;
@@ -93,6 +96,11 @@ public class WinConditionUI : MonoBehaviour
             Collect.SetActive(false);
             Run.SetActive(false);
             //Enemy.SetActive(false);
+        }
+        else
+        {
+            SwitchLock.SetActive(false);
+            changeSelectedCharacter.UnlockSwitching();
         }
     }
     public bool IsTutorial()
