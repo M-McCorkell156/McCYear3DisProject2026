@@ -54,6 +54,8 @@ public class WinConditionUI : MonoBehaviour
     [SerializeField] private GameObject PowerTxt;
     [SerializeField] private GameObject Collect;
     [SerializeField] private GameObject Run;
+
+    private int deathCount;
     void Start()
     {
         gotKey = false;
@@ -102,6 +104,8 @@ public class WinConditionUI : MonoBehaviour
             SwitchLock.SetActive(false);
             changeSelectedCharacter.UnlockSwitching();
         }
+
+        deathCount = 0;
     }
     public bool IsTutorial()
     {
@@ -201,7 +205,10 @@ public class WinConditionUI : MonoBehaviour
             CanEscapeObj.SetActive(true);
             onceLeave = true;
             CanLeave();
-            Run.SetActive(true);
+            if(tutorial)
+            {
+                Run.SetActive(true);
+            }
         }
         if (onceLeave && canEscape)
         {
@@ -217,4 +224,19 @@ public class WinConditionUI : MonoBehaviour
         yield return new WaitForSeconds(5);
         mainMenu.PlayMenu();
     }
+
+    public void AddDeathCount()
+    {
+        deathCount += 1;
+        if (deathCount == 2)
+        {
+            //end of game
+        }
+    }
+
+    public int GetDeathCount()
+    {
+        return deathCount;
+    }
+
 }

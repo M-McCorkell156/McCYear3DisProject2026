@@ -3694,7 +3694,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 627067255}
         m_TargetAssemblyTypeName: ActionManager, Assembly-CSharp
         m_MethodName: EnemyPhase
         m_Mode: 1
@@ -3706,7 +3706,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2051918048}
         m_TargetAssemblyTypeName: ChangeSelectedCharacter, Assembly-CSharp
         m_MethodName: FreezeSwitching
         m_Mode: 1
@@ -3718,7 +3718,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 997777503}
         m_TargetAssemblyTypeName: GridManager, Assembly-CSharp
         m_MethodName: FreezeCurrentGridMover
         m_Mode: 1
@@ -4507,11 +4507,11 @@ MonoBehaviour:
   searchableIconName: {fileID: 1224815885}
   weaponIconName: {fileID: 1899317213}
   powerIconName: {fileID: 1322422858}
-  lockpickGame: {fileID: 0}
+  lockpickGame: {fileID: 1481287181}
   searchingGame: {fileID: 1763312286}
-  powerGame: {fileID: 0}
-  gridManager: {fileID: 0}
-  powerScript: {fileID: 0}
+  powerGame: {fileID: 2038407903}
+  gridManager: {fileID: 997777503}
+  powerScript: {fileID: 2038407905}
   characterCount: 0
 --- !u!1 &314920119
 GameObject:
@@ -13744,11 +13744,11 @@ MonoBehaviour:
   searchableIconName: {fileID: 1862516942}
   weaponIconName: {fileID: 273305188}
   powerIconName: {fileID: 1734599985}
-  lockpickGame: {fileID: 0}
+  lockpickGame: {fileID: 1481287181}
   searchingGame: {fileID: 846502163}
-  powerGame: {fileID: 0}
-  gridManager: {fileID: 0}
-  powerScript: {fileID: 0}
+  powerGame: {fileID: 2038407903}
+  gridManager: {fileID: 997777503}
+  powerScript: {fileID: 2038407905}
   characterCount: 0
 --- !u!1 &784668698
 GameObject:
@@ -14082,6 +14082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846502164}
   - component: {fileID: 846502165}
+  - component: {fileID: 846502166}
   m_Layer: 0
   m_Name: SearchMiniGameA
   m_TagString: Untagged
@@ -14117,10 +14118,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce158ccec4973bc43b336cc05d4c7302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animitor: {fileID: 0}
+  animitor: {fileID: 846502166}
   gameStateManager: {fileID: 762874406}
-  timeManager: {fileID: 0}
+  timeManager: {fileID: 627067254}
   searchProgressBar: {fileID: 427261288}
+--- !u!95 &846502166
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846502163}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4bdc5203696fb6240b00c79e2a2c93cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &855672438
 GameObject:
   m_ObjectHideFlags: 0
@@ -20610,7 +20633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centreOfPick: {fileID: 2143445644}
-  anyGameStateManager: {fileID: 0}
+  anyGameStateManager: {fileID: 762874406}
   timeManager: {fileID: 627067254}
   progressBar: {fileID: 669693486}
   breakBar: {fileID: 496244221}
@@ -22729,6 +22752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1763312287}
   - component: {fileID: 1763312288}
+  - component: {fileID: 1763312289}
   m_Layer: 0
   m_Name: SearchMiniGameJ
   m_TagString: Untagged
@@ -22764,10 +22788,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce158ccec4973bc43b336cc05d4c7302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animitor: {fileID: 0}
+  animitor: {fileID: 1763312289}
   gameStateManager: {fileID: 307337313}
-  timeManager: {fileID: 0}
+  timeManager: {fileID: 627067254}
   searchProgressBar: {fileID: 966910492}
+--- !u!95 &1763312289
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763312286}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4bdc5203696fb6240b00c79e2a2c93cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!43 &1770687242
 Mesh:
   m_ObjectHideFlags: 0
@@ -27428,8 +27474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animitor: {fileID: 2038407906}
   gameStateManagers:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 762874406}
+  - {fileID: 307337313}
   gridManager: {fileID: 997777503}
 --- !u!95 &2038407906
 Animator:

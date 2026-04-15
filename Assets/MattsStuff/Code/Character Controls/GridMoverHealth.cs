@@ -10,6 +10,7 @@ public class GridMoverHealth : MonoBehaviour
     [SerializeField] private TextMeshProUGUI thisPlayersHealth;
     [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
     [SerializeField] private Animator animitor;
+    [SerializeField] private WinConditionUI winConditionUI;
 
     private void Start()
     {
@@ -42,6 +43,8 @@ public class GridMoverHealth : MonoBehaviour
     private void PlayerDead()
     {
         //Debug.Log("Player is Dead");
+        winConditionUI.AddDeathCount();
+
         animitor.SetBool("IsDead", true);
         changeSelectedCharacter.ChangeCharacter();
         changeSelectedCharacter.LockSwitching();
