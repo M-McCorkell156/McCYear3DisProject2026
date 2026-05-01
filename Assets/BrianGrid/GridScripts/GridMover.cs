@@ -24,6 +24,7 @@ public class GridMover : MonoBehaviour
     [SerializeField] private GameObject powerIcon;
 
     [SerializeField] private GameStateManager ThisCharactersGSM;
+    [SerializeField] private ChangeSelectedCharacter changeSelectedCharacter;
 
     [SerializeField] private GameObject MeshObj;
 
@@ -175,9 +176,14 @@ public class GridMover : MonoBehaviour
         {
             if (currentGridPos == interactiveGridPos && canExit)
             {
-                Debug.Log("on Escape and can");
-                gridManager.ReplaceInteractibleTile();
+                //Debug.Log("on Escape and can");
+                //gridManager.ReplaceInteractibleTile();
                 ThisCharactersGSM.CharacterEscape();
+
+                FreezeGridMoves();
+                changeSelectedCharacter.ChangeCharacter();
+                changeSelectedCharacter.FreezeSwitching();
+
             }
         }
     }

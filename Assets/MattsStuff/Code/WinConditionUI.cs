@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 public class WinConditionUI : MonoBehaviour
 {
     [SerializeField] private GameObject winText;
+    [SerializeField] private GameObject loseText;
+    [SerializeField] private GameObject backdrop;
 
     [SerializeField] private GameObject Tire;
     [SerializeField] private GameObject TireOutline;
@@ -66,6 +68,7 @@ public class WinConditionUI : MonoBehaviour
 
         CanEscapeObj.SetActive(false);
         winText.SetActive(false);
+        loseText.SetActive(false);  
 
         Tire.SetActive(false);
         TireOutline.SetActive(true);
@@ -188,7 +191,11 @@ public class WinConditionUI : MonoBehaviour
 
     void OnEscape()
     {
-        characterCount += 1;
+        if(deathCount == 1)
+        {
+            canEscape = true;
+        }
+            characterCount += 1;
         //Debug.Log("EscapeNo: " + characterCount);
         if (characterCount == 2)
         {
@@ -230,7 +237,9 @@ public class WinConditionUI : MonoBehaviour
         deathCount += 1;
         if (deathCount == 2)
         {
-            //end of game
+            loseText.SetActive(true);
+            StartCoroutine(LoadMainMenu());
+
         }
     }
 

@@ -67,12 +67,12 @@ public class EnemyMover : MonoBehaviour
 
         if (Mathf.Abs(Random.Range(1, 10) / 2) == 1 && changeSelectedCharacter.CanSwitch())
         {
-            Debug.Log("Enemy targeting player 1");
+            //Debug.Log("Enemy targeting player 1");
             targetPlayer = players[1];
         }
         else
         {
-            Debug.Log("Enemy targeting player 0");
+            //Debug.Log("Enemy targeting player 0");
             targetPlayer = players[0];
         }
 
@@ -191,7 +191,7 @@ public class EnemyMover : MonoBehaviour
 
     public void AttackPlayer()
     {
-        Debug.Log("Enemy attacks player!");
+        //Debug.Log("Enemy attacks player!");
         animator.SetBool("IsAttack", true);
         targetPlayer.GetComponent<GridMoverHealth>().TakeDamage();
 

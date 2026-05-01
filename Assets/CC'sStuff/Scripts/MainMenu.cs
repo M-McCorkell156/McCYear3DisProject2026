@@ -16,14 +16,18 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject Begin;
     [SerializeField] private float enableTime;
 
+    private float currentLvlSelection;
+    [SerializeField] private bool isMenu;
+
     private void Start()
     {
-        PlayCharacter();
+        if (isMenu)
+            PlayCharacter();
     }
 
     public void PlayBooks()
     {
-        Debug.Log("Playing Books");
+        //Debug.Log("Playing Books");
         HideCharacter();
         StartCoroutine(LerpCamera(105));
         Invoke(nameof(EnableBooks), enableTime);
@@ -31,11 +35,11 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator LerpCamera(float xToRotate)
     {
-        Debug.Log("Starting LerpCamera with target X rotation: " + xToRotate);
+        //Debug.Log("Starting LerpCamera with target X rotation: " + xToRotate);
         Quaternion targetRot = Quaternion.Euler(xToRotate, 0f, 0f);
 
-        Debug.Log("Target rotation for camera: " + targetRot.eulerAngles);
-        Debug.Log("Target rotation for camera:: " + Quaternion.Euler(xToRotate, 0f, 0f));
+        //Debug.Log("Target rotation for camera: " + targetRot.eulerAngles);
+        //Debug.Log("Target rotation for camera:: " + Quaternion.Euler(xToRotate, 0f, 0f));
 
         while (Mathf.Abs(Mathf.DeltaAngle(mainCamera.transform.localRotation.eulerAngles.x, xToRotate)) > 1)
         {
@@ -44,9 +48,9 @@ public class MainMenu : MonoBehaviour
 
             yield return null;
         }
-        Debug.Log("Finished LerpCamera. Final rotation: " + mainCamera.transform.localRotation.eulerAngles);
+        //Debug.Log("Finished LerpCamera. Final rotation: " + mainCamera.transform.localRotation.eulerAngles);
         mainCamera.transform.localRotation = targetRot;
-        Debug.Log("Set camera to target rotation: " + mainCamera.transform.localRotation.eulerAngles);
+       //Debug.Log("Set camera to target rotation: " + mainCamera.transform.localRotation.eulerAngles);
         yield return null;
 
     }
@@ -175,6 +179,28 @@ public class MainMenu : MonoBehaviour
         if (CheckForPlay())
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        }
+    }
+    public void SelectLvl1()
+    {
+        currentLvlSelection = 1;
+    }
+
+    public void SelectLvlT()
+    {
+        currentLvlSelection = 0;
+    }
+
+    public void PlaYGame(
+        )
+    {
+        if (currentLvlSelection == 1)
+        {
+            PlayLevel_1();
+        }
+        else
+        {
+            PlayTutorial();
         }
     }
 

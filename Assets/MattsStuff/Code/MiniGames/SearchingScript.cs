@@ -49,7 +49,7 @@ public class SearchingScript : MonoBehaviour
             {
                 SearchFinished();
             }
-            animitor.SetBool("isSucess", true);
+            //animitor.SetTrigger("isSucess");
             timeManager.RecordTime(TimeEventType.MiniGameEnd);
             gameStateManager.CompleteSearchMiniGame();
         }
@@ -75,7 +75,7 @@ public class SearchingScript : MonoBehaviour
             isSearching = false;
             searchProgressBar.fillAmount = 0f;
             animitor.SetBool("isFail", false);
-            animitor.SetBool("isSucess", false);
+
             animitor.SetBool("isSearching", false);
 
         }

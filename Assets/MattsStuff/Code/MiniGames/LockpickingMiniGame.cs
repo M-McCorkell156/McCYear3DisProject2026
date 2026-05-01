@@ -89,10 +89,9 @@ public class LockpickingMiniGame : MonoBehaviour
                 percentageTurn = Mathf.InverseLerp(centreOfScreen, 0, screenPosition.x);
                 //Debug.Log(percentageTurn);
                 currentAngle = (-percentageTurn * 90f);
-
             }
 
-                centreOfPick.transform.localRotation = Quaternion.Euler(centreOfPick.transform.rotation.eulerAngles.x, centreOfPick.transform.rotation.eulerAngles.y,currentAngle);
+                centreOfPick.transform.localRotation = Quaternion.Euler(-90, 0,currentAngle);
 
             //Debug.Log(currentAngle);
             #endregion
@@ -106,9 +105,10 @@ public class LockpickingMiniGame : MonoBehaviour
         {
             animitor.SetBool("isFail", true);
             gameOver = true;
-            timeManager.RecordTime(TimeEventType.MiniGameEnd);
+            //timeManager.RecordTime(TimeEventType.MiniGameEnd);
             //Debug.Log("Broke");
-            LostText.SetActive(true);
+            if(LostText != null)
+                LostText.SetActive(true);
             unfreezeGridMoves();
             Invoke("FinishGame", finishTime);
         }
@@ -169,8 +169,11 @@ public class LockpickingMiniGame : MonoBehaviour
             {
                 animitor.SetBool("isSucess", true);
                 gameOver = true;
-                WinText.SetActive(true);
-                timeManager.RecordTime(TimeEventType.MiniGameEnd);
+
+                if(WinText != null)
+                    WinText.SetActive(true);
+
+                //timeManager.RecordTime(TimeEventType.MiniGameEnd);
 
                 anyGameStateManager.CompletePickMiniGame();
 
@@ -225,8 +228,10 @@ public class LockpickingMiniGame : MonoBehaviour
         centreOfScreen = Screen.width / 2;
         greenSpotAngle = Random.Range(-90f, 90f);
 
-        WinText.SetActive(false);
-        LostText.SetActive(false);
+        if(WinText != null)
+            WinText.SetActive(false);
+        if(LostText != null)    
+            LostText.SetActive(false);
     }
     public void FinishGame()
     {

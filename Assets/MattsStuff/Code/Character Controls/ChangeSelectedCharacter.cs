@@ -75,7 +75,7 @@ public class ChangeSelectedCharacter : MonoBehaviour
     }
     public void ChangeCharacter()
     {
-        //Debug.Log(currentCharacter);
+        Debug.Log(currentCharacter);
         //Debug.Log(canSwitch +":"+ shouldSwitch);
 
         if (!canSwitch || !shouldSwitch)
@@ -108,7 +108,7 @@ public class ChangeSelectedCharacter : MonoBehaviour
         StartCoroutine(MoveCameraToCharacter());
 
         //mainCamera.transform.localPosition = new Vector3( 25f, 45f, currentCharacter.transform.position.z); 
-        //Debug.Log("Character Changed to: " + currentCharacter);
+        Debug.Log("Character Changed to: " + currentCharacter);
     }
 
     private IEnumerator MoveCameraToCharacter()
